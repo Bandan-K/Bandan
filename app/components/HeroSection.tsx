@@ -1,7 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 const HeroSection = () => {
 	return (
 		<section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden py-16 sm:py-20">
