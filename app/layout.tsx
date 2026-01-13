@@ -95,7 +95,7 @@ export default function RootLayout({
 							name: 'Bandan Kumar Mahto',
 							url: 'https://bandan-kumar.vercel.app',
 							jobTitle: 'iOS Developer',
-							sameAs: ['https://github.com/bandank', 'https://www.linkedin.com/in/bandan-kumar/'],
+							sameAs: ['https://github.com/bandan-k', 'https://www.linkedin.com/in/bandan-kumar/'],
 						}),
 					}}
 				/>
