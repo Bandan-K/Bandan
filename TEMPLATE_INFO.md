@@ -1,31 +1,3 @@
-# Template Information
-
-This file contains instructions from the original template and archived project setup instructions.
-
-## Original Getting Started Options
-
-### Option 1: Using Git Sparse Checkout
-
-If you want to clone only this specific template:
-
-```bash
-git clone --no-checkout https://github.com/devportfoliotemplates/devportfoliotemplates.git
-cd devportfoliotemplates
-git sparse-checkout init --cone
-git sparse-checkout set myportfolio
-git checkout
-```
-
-### Option 2: Direct Download
-
-You can download this template as a ZIP file:
-
-1. Visit [download-directory.github.io](https://download-directory.github.io/)
-2. Paste the URL of this portfolio folder: `https://github.com/devportfoliotemplates/devportfoliotemplates/tree/main/myportfolio`
-3. Download and extract the ZIP file
-
-## Customization
-
 ### Personal Information
 
 1. Update metadata in `app/layout.tsx`:
@@ -62,8 +34,6 @@ You can download this template as a ZIP file:
 3. Layout:
    - Adjust spacing and padding in component files
    - Modify responsive breakpoints in `tailwind.config.js`
-
-## Archived Project Instructions
 
 ### Running the Project
 

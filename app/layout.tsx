@@ -13,10 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+	metadataBase: new URL('https://bandan-kumar.vercel.app/'),
 	title: 'Bandan Kumar Mahto - iOS Developer',
 	description:
 		'Welcome to my portfolio! I am a dedicated iOS developer crafting intuitive, high-performance applications using Swift, SwiftUI, and UIKit. I specialize in building seamless user experiences, robust APIs, and fluid animations for iPhone and iPad.',
 	keywords: [
+		'Bandan Kumar Mahto',
 		'iOS Developer',
 		'Swift',
 		'SwiftUI',
@@ -34,7 +36,6 @@ export const metadata: Metadata = {
 		'Mobile UI/UX',
 		'Auto Layout',
 		'Xcode',
-		'Bandan Kumar Mahto',
 	],
 	authors: [{ name: 'Bandan Kumar Mahto' }],
 	creator: 'Bandan Kumar Mahto',
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
 		title: 'Bandan Kumar Mahto - iOS Developer Portfolio',
 		description:
 			'Skilled iOS developer building elegant and performant iPhone/iPad applications using Swift, SwiftUI, and UIKit. Explore my work and technical expertise.',
-		url: 'https://your-domain.com', // update when deploying
+		url: 'https://bandan-kumar.vercel.app/', // update when deploying
 		siteName: 'Bandan Kumar Mahto - Portfolio',
 		images: [
 			{
@@ -55,14 +56,14 @@ export const metadata: Metadata = {
 		locale: 'en_US',
 		type: 'website',
 	},
-	twitter: {
-		card: 'summary_large_image',
-		title: 'Bandan Kumar Mahto - iOS Developer',
-		description:
-			'Skilled iOS developer building elegant and performant iPhone/iPad applications using Swift, SwiftUI, and UIKit. Explore my work and technical expertise.',
-		creator: '@yourusername', // update if needed
-		images: ['/og-image.jpg'],
-	},
+	// twitter: {
+	// 	card: 'summary_large_image',
+	// 	title: 'Bandan Kumar Mahto - iOS Developer',
+	// 	description:
+	// 		'Skilled iOS developer building elegant and performant iPhone/iPad applications using Swift, SwiftUI, and UIKit. Explore my work and technical expertise.',
+	// 	creator: '@yourusername', // update if needed
+	// 	images: ['/og-image.jpg'],
+	// },
 	robots: {
 		index: true,
 		follow: true,
