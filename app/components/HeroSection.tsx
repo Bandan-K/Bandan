@@ -17,7 +17,7 @@ const HeroSection = () => {
 						</span>
 					</h1>
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-100 to-gray-300">
-						iOS App Developer
+						iOS Developer
 					</h2>
 					<p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed px-4">
 						Crafting exceptional iOS experiences with
