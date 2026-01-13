@@ -1,140 +1,36 @@
-# Mobile Developer Portfolio Template
+# Bandan Kumar Mahto - iOS Developer Portfolio
 
-[Demo](https://www.devportfoliotemplates.com/portfolio-templates/mobile-developer)
+Welcome to my personal portfolio. I am a dedicated iOS developer crafting intuitive, high-performance applications using Swift, SwiftUI, and UIKit. I specialize in building seamless user experiences, robust APIs, and fluid animations for iPhone and iPad.
 
-## Getting Started
+## 🚀 About This Project
 
-You have two options to get started with this template:
+This portfolio showcases my journey, skills, and projects as a mobile developer. It is designed to demonstrate not only my work but also my commitment to clean, modern, and accessible design.
 
-### Option 1: Using Git Sparse Checkout
+### Key Sections:
 
-If you want to clone only this specific template:
+- **Hero Section**: Introduction and professional summary.
+- **Skills**: A comprehensive view of my technical expertise in iOS development.
+- **App Showcase**: Highlights of my key projects with detailed descriptions.
+- **Development Process**: Insight into my workflow and how I bring ideas to life.
+- **Contact**: Easy ways to reach out for collaboration.
 
-```bash
-git clone --no-checkout https://github.com/devportfoliotemplates/devportfoliotemplates.git
-cd devportfoliotemplates
-git sparse-checkout init --cone
-git sparse-checkout set myportfolio
-git checkout
-```
+## 🛠 Built With
 
-### Option 2: Direct Download
+This portfolio itself is a modern web application built using:
 
-You can download this template as a ZIP file:
+- **[Next.js 15](https://nextjs.org/)**: React framework for the web.
+- **[Tailwind CSS](https://tailwindcss.com/)**: Utility-first CSS framework for rapid UI development.
+- **[Framer Motion](https://www.framer.com/motion/)**: Production-ready motion library for React.
+- **TypeScript**: For type-safe code and better developer experience.
 
-1. Visit [download-directory.github.io](https://download-directory.github.io/)
-2. Paste the URL of this portfolio folder: `https://github.com/devportfoliotemplates/devportfoliotemplates/tree/main/myportfolio`
-3. Download and extract the ZIP file
+## 📬 Get in Touch
 
-### Running the Template
+I am always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
 
-Once you have the template:
+- **LinkedIn**: [Bandan Kumar Mahto](https://linkedin.com/in/) _(Update with your actual link)_
+- **Email**: [bandan.mahto@example.com](mailto:bandan.mahto@example.com) _(Update with your actual email)_
+- **GitHub**: [Bandan Kumar Mahto](https://github.com/) _(Update with your actual link)_
 
-1. Install dependencies:
+---
 
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-```
-
-2. Run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-3. Open [http://localhost:3000](http://localhost:3000) in your browser to see the portfolio.
-
-## Customization
-
-### Personal Information
-
-1. Update metadata in `app/layout.tsx`:
-
-   - Site title
-   - Description
-   - Open Graph metadata
-   - Favicon
-
-2. Modify content in `app/page.tsx`:
-
-   - Hero section
-   - About section
-   - Projects
-   - Contact information
-
-3. Replace assets:
-   - Replace images in the `public` directory
-   - Update social media icons
-   - Modify logo if needed
-
-### Styling
-
-1. Colors and Theme:
-
-   - Customize colors in `tailwind.config.js`
-   - Modify theme variables in `app/globals.css`
-
-2. Typography:
-
-   - Update font families in `tailwind.config.js`
-   - Modify text sizes and weights
-
-3. Layout:
-   - Adjust spacing and padding in component files
-   - Modify responsive breakpoints in `tailwind.config.js`
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Build Errors**
-
-   - Ensure all dependencies are installed
-   - Clear `.next` folder and node_modules
-   - Run `npm install` again
-
-2. **Styling Issues**
-
-   - Run `npm run build` to ensure TailwindCSS classes are generated
-   - Check for conflicting styles in `globals.css`
-
-3. **Image Loading**
-   - Verify images are in the correct format (PNG, JPG, WebP)
-   - Check image paths are correct
-   - Ensure images are in the `public` directory
-
-## Deployment
-
-Follow these steps to deploy your portfolio for free using GitHub and Vercel:
-
-1. Create a new GitHub repository
-
-2. Push your portfolio to GitHub
-
-3. Deploy with Vercel:
-   - Go to [Vercel](https://vercel.com)
-   - Sign up or log in with GitHub
-   - Click "New Project"
-   - Import your GitHub repository
-   - Vercel will automatically detect Next.js
-   - Click "Deploy"
-
-Your portfolio will be live in minutes with a free Vercel domain (e.g., `your-repo.vercel.app`). You can later add a custom domain in your Vercel project settings.
-
-## Support
-
-If you find these templates helpful, please consider:
-
-- Starring the repository ⭐
-- Sharing with other developers
-- [Buying me a coffee](https://www.buymeacoffee.com/andreiancu) ☕
-
-For issues and feature requests, please [create an issue](https://github.com/devportfoliotemplates/devportfoliotemplates/issues).
+_Designed and developed by Bandan Kumar Mahto._
