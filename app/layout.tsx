@@ -84,7 +84,22 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				{children}
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify({
+							'@context': 'https://schema.org',
+							'@type': 'Person',
+							name: 'Bandan Kumar Mahto',
+							url: 'https://bandan-kumar.vercel.app',
+							jobTitle: 'iOS Developer',
+							sameAs: ['https://github.com/bandank', 'https://www.linkedin.com/in/bandan-kumar/'],
+						}),
+					}}
+				/>
+			</body>
 		</html>
 	);
 }

@@ -27,9 +27,8 @@ This portfolio itself is a modern web application built using:
 
 I am always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
 
-- **LinkedIn**: [Bandan Kumar Mahto](https://linkedin.com/in/) _(Update with your actual link)_
-- **Email**: [bandan.mahto@example.com](mailto:bandan.mahto@example.com) _(Update with your actual email)_
-- **GitHub**: [Bandan Kumar Mahto](https://github.com/) _(Update with your actual link)_
+- **LinkedIn**: [Bandan Kumar Mahto](http://www.linkedin.com/in/bandan-kumar/)
+- **Email**: [bandan.kmahto@gmail.com](mailto:bandan.kmahto@gmail.com)
 
 ---
 
