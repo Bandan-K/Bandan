@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
 	metadataBase: new URL('https://bandan-kumar.vercel.app/'),
+	alternates: {
+		canonical: 'https://bandan-kumar.vercel.app',
+	},
 	title: 'Bandan Kumar Mahto - iOS Developer',
 	description:
 		'Welcome to my portfolio! I am a dedicated iOS developer crafting intuitive, high-performance applications using Swift, SwiftUI, and UIKit. I specialize in building seamless user experiences, robust APIs, and fluid animations for iPhone and iPad.',
@@ -89,14 +92,22 @@ export default function RootLayout({
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{
-						__html: JSON.stringify({
-							'@context': 'https://schema.org',
-							'@type': 'Person',
-							name: 'Bandan Kumar Mahto',
-							url: 'https://bandan-kumar.vercel.app',
-							jobTitle: 'iOS Developer',
-							sameAs: ['https://github.com/bandan-k', 'https://www.linkedin.com/in/bandan-kumar/'],
-						}),
+						__html: JSON.stringify([
+							{
+								'@context': 'https://schema.org',
+								'@type': 'Person',
+								name: 'Bandan Kumar Mahto',
+								url: 'https://bandan-kumar.vercel.app',
+								jobTitle: 'iOS Developer',
+								sameAs: ['https://github.com/bandan-k', 'https://www.linkedin.com/in/bandan-kumar/'],
+							},
+							{
+								'@context': 'https://schema.org',
+								'@type': 'WebSite',
+								name: 'Bandan Kumar Mahto',
+								url: 'https://bandan-kumar.vercel.app',
+							},
+						]),
 					}}
 				/>
 			</body>
