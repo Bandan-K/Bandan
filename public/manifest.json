@@ -1,0 +1,26 @@
+{
+    "name": "Bandan Kumar Mahto - iOS Developer",
+    "short_name": "Bandan",
+    "description": "Portfolio of Bandan Kumar Mahto, a dedicated iOS developer crafting intuitive, high-performance applications.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "/favicon_dark.png",
+            "sizes": "any",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon_dark.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon_dark.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

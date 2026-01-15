@@ -88,7 +88,7 @@ const SkillsSection = () => {
 										<div className="space-y-1 text-xs text-gray-400">
 											<p>• {skill.level}% Proficiency</p>
 											<p>• {skill.level > 90 ? 'Expert' : skill.level > 80 ? 'Advanced' : 'Intermediate'} Level</p>
-											<p>• {Math.round(skill.level / 10)} Years Experience</p>
+											{/* <p>• {Math.round(skill.level / 10)} Years Experience</p> */}
 										</div>
 									</div>
 								</div>

@@ -21,7 +21,12 @@ export const metadata: Metadata = {
 	description:
 		'Welcome to my portfolio! I am a dedicated iOS developer crafting intuitive, high-performance applications using Swift, SwiftUI, and UIKit. I specialize in building seamless user experiences, robust APIs, and fluid animations for iPhone and iPad.',
 	keywords: [
+		'Bandan',
+		'Bandan Kumar',
 		'Bandan Kumar Mahto',
+		'Bandan iOS Developer',
+		'Bandan Kumar iOS Developer',
+		'Bandan Kumar Mahto iOS Developer',
 		'iOS Developer',
 		'Swift',
 		'SwiftUI',
@@ -78,6 +83,14 @@ export const metadata: Metadata = {
 			'max-snippet': -1,
 		},
 	},
+	icons: {
+		icon: [
+			{ url: '/favicon.png', media: '(prefers-color-scheme: light)' },
+			{ url: '/favicon_dark.png', media: '(prefers-color-scheme: dark)' },
+		],
+		apple: '/favicon_dark.png',
+	},
+	manifest: '/manifest.json',
 };
 
 export default function RootLayout({
