@@ -18,6 +18,12 @@ export const metadata: Metadata = {
 		canonical: 'https://bandan-kumar.vercel.app',
 	},
 	title: 'Bandan Kumar Mahto - iOS Developer',
+	applicationName: 'Bandan Kumar Mahto',
+	appleWebApp: {
+		title: 'Bandan',
+		statusBarStyle: 'default',
+		capable: true,
+	},
 	description:
 		'Welcome to my portfolio! I am a dedicated iOS developer crafting intuitive, high-performance applications using Swift, SwiftUI, and UIKit. I specialize in building seamless user experiences, robust APIs, and fluid animations for iPhone and iPad.',
 	keywords: [
@@ -51,8 +57,8 @@ export const metadata: Metadata = {
 		title: 'Bandan Kumar Mahto - iOS Developer Portfolio',
 		description:
 			'Skilled iOS developer building elegant and performant iPhone/iPad applications using Swift, SwiftUI, and UIKit. Explore my work and technical expertise.',
-		url: 'https://bandan-kumar.vercel.app/', // update when deploying
-		siteName: 'Bandan Kumar Mahto - Portfolio',
+		url: 'https://bandan-kumar.vercel.app/',
+		siteName: 'Bandan Kumar Mahto',
 		images: [
 			{
 				url: '/og-image.jpg',
@@ -118,6 +124,7 @@ export default function RootLayout({
 								'@context': 'https://schema.org',
 								'@type': 'WebSite',
 								name: 'Bandan Kumar Mahto',
+								alternateName: ['Bandan', 'Bandan Portfolio'],
 								url: 'https://bandan-kumar.vercel.app',
 							},
 						]),
