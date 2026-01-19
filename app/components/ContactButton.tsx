@@ -1,11 +1,15 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { trackEvent } from '../lib/analytics';
 
 const ContactButton = () => {
 	const [showDialog, setShowDialog] = useState(false);
 
-	const openDialog = () => setShowDialog(true);
+	const openDialog = () => {
+		setShowDialog(true);
+		trackEvent('contact_modal_open');
+	};
 	const closeDialog = () => setShowDialog(false);
 
 	return (
@@ -57,7 +61,10 @@ const ContactButton = () => {
 									<a
 										href="mailto:bandan.kmahto@gmail.com"
 										className="group/btn flex items-center justify-between px-5 py-4 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 hover:border-blue-500/50 transition-all duration-300"
-										onClick={closeDialog}
+										onClick={() => {
+											trackEvent('contact_method_click', { method: 'default_mail' });
+											closeDialog();
+										}}
 									>
 										<div className="flex items-center gap-3">
 											<div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover/btn:scale-110 transition-transform">
@@ -80,7 +87,10 @@ const ContactButton = () => {
 										target="_blank"
 										rel="noopener noreferrer"
 										className="group/btn flex items-center justify-between px-5 py-4 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 hover:border-red-500/50 transition-all duration-300"
-										onClick={closeDialog}
+										onClick={() => {
+											trackEvent('contact_method_click', { method: 'gmail' });
+											closeDialog();
+										}}
 									>
 										<div className="flex items-center gap-3">
 											<div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center text-red-400 group-hover/btn:scale-110 transition-transform">

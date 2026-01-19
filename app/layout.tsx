@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import FirebaseAnalytics from './components/FirebaseAnalytics';
+import VisitorLogger from './components/VisitorLogger';
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
 	title: 'Bandan Kumar Mahto - iOS Developer',
 	applicationName: 'Bandan Kumar Mahto',
 	appleWebApp: {
-		title: 'Bandan',
+		title: 'Bandan Kumar Mahto',
 		statusBarStyle: 'default',
 		capable: true,
 	},
@@ -107,6 +109,8 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				<FirebaseAnalytics />
+				<VisitorLogger />
 				{children}
 				<script
 					type="application/ld+json"
@@ -124,7 +128,7 @@ export default function RootLayout({
 								'@context': 'https://schema.org',
 								'@type': 'WebSite',
 								name: 'Bandan Kumar Mahto',
-								alternateName: ['Bandan', 'Bandan Portfolio'],
+								alternateName: ['Bandan', 'Bandan Portfolio', 'Bandan Kumar', 'Bandan Kumar - iOS Developer'],
 								url: 'https://bandan-kumar.vercel.app',
 							},
 						]),
