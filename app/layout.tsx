@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import FirebaseAnalytics from './components/FirebaseAnalytics';
-import VisitorLogger from './components/VisitorLogger';
+import AnalyticsTracker from './components/AnalyticsTracker';
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -109,8 +108,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<FirebaseAnalytics />
-				<VisitorLogger />
+				<AnalyticsTracker />
 				{children}
 				<script
 					type="application/ld+json"

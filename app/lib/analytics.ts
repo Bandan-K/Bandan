@@ -2,9 +2,21 @@ import { rtdb, logEvent, initAnalytics } from './firebase';
 import { ref, set, serverTimestamp } from 'firebase/database';
 
 /**
+ * Gets or creates a persistent visitor ID to ensure all events are linked, 
+ * even if IP fetch is pending or fails, and persists across refreshes.
+ */
+const getVisitorId = () => {
+	if (typeof window === 'undefined') return 'server';
+	let visitorId = localStorage.getItem('visitor_id');
+	if (!visitorId) {
+		visitorId = `vis_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+		localStorage.setItem('visitor_id', visitorId);
+	}
+	return visitorId;
+};
+
+/**
  * Tracks an event across both Firebase Analytics and Realtime Database.
- * This ensures high-level metrics are in Analytics while granular, 
- * exportable logs are in the Database.
  */
 export const trackEvent = async (eventName: string, params: Record<string, any> = {}) => {
 	try {
@@ -15,11 +27,9 @@ export const trackEvent = async (eventName: string, params: Record<string, any> 
 		}
 
 		// 2. Log to Realtime Database
-		const sanitizedIp = typeof window !== 'undefined' ? sessionStorage.getItem('visitor_ip') : 'server';
-		const targetNode = sanitizedIp ? `visitors/${sanitizedIp}/events` : 'events_anonymous';
-		
+		const visitorId = getVisitorId();
 		const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-		const eventRef = ref(rtdb, `${targetNode}/${timestamp}`);
+		const eventRef = ref(rtdb, `visitors/${visitorId}/events/${timestamp}`);
 		
 		await set(eventRef, {
 			event_name: eventName,
