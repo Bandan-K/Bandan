@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
 
-const ContactButton = () => {
+const ContactDialog = () => {
 	const [showDialog, setShowDialog] = useState(false);
 
 	const openDialog = () => {
@@ -124,4 +124,4 @@ const ContactButton = () => {
 	);
 };
 
-export default ContactButton;
+export default ContactDialog;

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import ContactButton from './ContactButton';
+import ContactDialog from './ContactDialog';
 import ResumeModal from './ResumeModal';
 
 const ContactSection = () => {
@@ -47,7 +47,7 @@ const ContactSection = () => {
 
 					{/* Contact Buttons */}
 					<div className="flex flex-col sm:flex-row justify-center gap-4">
-						<ContactButton />
+						<ContactDialog />
 
 						<button
 							onClick={handleResumeClick}
