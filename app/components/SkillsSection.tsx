@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
+import { db } from '../lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 /**
  * Skill interface designed for easy serialization and future Firebase integration.
@@ -292,6 +294,32 @@ const SkillModal = ({ skill, onClose }: { skill: Skill, onClose: () => void }) =
 
 const SkillsSection = () => {
 	const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+	const [fetchedSkills, setFetchedSkills] = useState<Skill[]>([]);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		const fetchSkills = async () => {
+			try {
+				const docRef = doc(db, 'ProfileDetails', 'MyDetail');
+				const docSnap = await getDoc(docRef);
+
+				if (docSnap.exists()) {
+					const data = docSnap.data();
+					if (data.skillsSection) {
+						setFetchedSkills(data.skillsSection as Skill[]);
+					}
+				}
+			} catch (error) {
+				console.error("Error fetching skills: ", error);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		fetchSkills();
+	}, []);
+
+	// seedSkills function removed as per user request (moved to Flutter app)
 
 	const handleSkillClick = (skill: Skill) => {
 		setSelectedSkill(skill);
@@ -324,7 +352,7 @@ const SkillsSection = () => {
 							</div>
 
 							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-								{skills.filter(s => s.category === catKey).map((skill) => (
+								{fetchedSkills.filter(s => s.category === catKey).map((skill) => (
 									<SkillCard
 										key={skill.name}
 										skill={skill}
