@@ -1,5 +1,5 @@
-import HeroSection from './components/HeroSection';
-import SkillsSection from './components/SkillsSection';
+import HeroSection from './components/hero';
+import SkillsSection from './components/skills';
 import AppShowcase from './components/AppShowcase';
 import DevelopmentProcess from './components/DevelopmentProcess';
 import ContactSection from './components/ContactSection';
