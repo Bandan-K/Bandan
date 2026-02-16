@@ -1,22 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { getProfileData, HeroSectionData } from '../lib/profile';
+import React, { useEffect, useState } from 'react';
+import { HeroSectionData } from '../lib/services/profile';
 
-const HeroSection = () => {
-	const [data, setData] = useState<HeroSectionData | null>(null);
-	const [isLoading, setIsLoading] = useState(true);
+interface HeroSectionProps {
+	initialData?: HeroSectionData | null;
+}
+
+const HeroSection = ({ initialData }: HeroSectionProps) => {
+	const [data, setData] = useState<HeroSectionData | null>(initialData || null);
+	const [isLoading, setIsLoading] = useState(!initialData);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const profileData = await getProfileData();
-			if (profileData?.heroSection) {
-				setData(profileData.heroSection);
-			}
+		if (initialData) {
+			setData(initialData);
 			setIsLoading(false);
-		};
-		fetchData();
-	}, []);
+		}
+	}, [initialData]);
 
 	const stats = [
 		{

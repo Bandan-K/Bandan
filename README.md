@@ -6,7 +6,7 @@ Welcome to my personal portfolio. I am a dedicated iOS developer crafting intuit
 
 This portfolio showcases my journey, skills, and projects as a mobile developer. It is designed to demonstrate not only my work but also my commitment to clean, modern, and accessible design.
 
-### Key Sections:
+### Key Sections
 
 - **Hero Section**: Introduction and professional summary.
 - **Skills**: A comprehensive view of my technical expertise in iOS development.

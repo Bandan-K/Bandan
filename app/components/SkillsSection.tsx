@@ -5,19 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { trackEvent } from '../lib/analytics';
 import { db } from '../lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-
-/**
- * Skill interface designed for easy serialization and future Firebase integration.
- */
-interface Skill {
-	name: string;
-	tag: string;
-	expertise: string;
-	category: 'core' | 'frameworks' | 'tools';
-	description: string;
-	docUrl?: string;
-	searchSuffix?: string;
-}
+import { Skill } from '../lib/services/profile';
 
 const skills: Skill[] = [
 	// Core Stack
@@ -292,12 +280,17 @@ const SkillModal = ({ skill, onClose }: { skill: Skill, onClose: () => void }) =
 	);
 };
 
-const SkillsSection = () => {
+const SkillsSection = ({ initialSkills }: { initialSkills?: Skill[] }) => {
 	const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
-	const [fetchedSkills, setFetchedSkills] = useState<Skill[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [fetchedSkills, setFetchedSkills] = useState<Skill[]>(initialSkills || []);
+	const [isLoading, setIsLoading] = useState(!initialSkills);
 
 	useEffect(() => {
+		if (initialSkills) {
+			setFetchedSkills(initialSkills);
+			setIsLoading(false);
+			return;
+		}
 		const fetchSkills = async () => {
 			try {
 				const docRef = doc(db, 'ProfileDetails', 'MyDetail');
