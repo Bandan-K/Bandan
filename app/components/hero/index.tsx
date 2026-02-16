@@ -20,7 +20,7 @@ const HeroSection = ({ initialData }: HeroSectionProps) => {
     }, [initialData]);
 
     return (
-        <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden py-16 sm:py-20">
+        <section id="home" className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-32 pb-16 sm:py-20">
             <div className="absolute inset-0 z-0">
                 <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
                 <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent"></div>
