@@ -88,7 +88,7 @@ const processes: Process[] = [
 
 const DevelopmentProcess = () => {
   return (
-    <section className="py-16 md:py-20 relative">
+    <section id="process" className="py-16 md:py-20 relative">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-center">
           iOS Development Process
