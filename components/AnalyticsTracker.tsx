@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { rtdb, initAnalytics } from '../lib/firebase';
+import { rtdb, initAnalytics } from '@/lib/firebase';
 import { ref, set, serverTimestamp, get, update, push } from 'firebase/database';
 
 /**

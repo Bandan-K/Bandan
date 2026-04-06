@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { trackEvent } from '../lib/analytics';
+import { trackEvent } from '@/lib/analytics';
 
 const ContactDialog = () => {
 	const [showDialog, setShowDialog] = useState(false);

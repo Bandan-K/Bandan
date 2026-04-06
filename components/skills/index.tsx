@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { trackEvent } from '../../lib/analytics';
-import { db } from '../../lib/firebase';
+import { trackEvent } from '@/lib/analytics';
+import { db } from '@/lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { Skill } from '../../lib/services/profile';
+import { Skill } from '@/lib/services/profile';
 import { CATEGORY_STYLES, CategoryKey } from './constants';
 import SkillCard from './SkillCard';
 import SkillModal from './SkillModal';

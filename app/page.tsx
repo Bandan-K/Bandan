@@ -1,9 +1,9 @@
-import HeroSection from './components/hero';
-import SkillsSection from './components/skills';
-import AppShowcase from './components/AppShowcase';
-import DevelopmentProcess from './components/DevelopmentProcess';
-import ContactSection from './components/ContactSection';
-import { getProfileDetails } from './lib/services/profile';
+import HeroSection from '@/components/hero';
+import SkillsSection from '@/components/skills';
+import AppShowcase from '@/components/AppShowcase';
+import DevelopmentProcess from '@/components/DevelopmentProcess';
+import ContactSection from '@/components/ContactSection';
+import { getProfileDetails } from '@/lib/services/profile';
 
 export default async function MobileDevPortfolio() {
 	const profileData = await getProfileDetails();

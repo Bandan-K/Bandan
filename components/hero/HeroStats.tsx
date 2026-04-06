@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeroSectionData } from '../../lib/services/profile';
+import { HeroSectionData } from '@/lib/services/profile';
 
 interface HeroStatsProps {
     data: HeroSectionData | null;

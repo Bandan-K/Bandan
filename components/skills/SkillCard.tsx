@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skill } from '../../lib/services/profile';
+import { Skill } from '@/lib/services/profile';
 import { CATEGORY_STYLES } from './constants';
 
 interface SkillCardProps {

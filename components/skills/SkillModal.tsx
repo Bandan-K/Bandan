@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Skill } from '../../lib/services/profile';
+import { Skill } from '@/lib/services/profile';
 import { CATEGORY_STYLES } from './constants';
-import { trackEvent } from '../../lib/analytics';
+import { trackEvent } from '@/lib/analytics';
 
 interface SkillModalProps {
     skill: Skill;

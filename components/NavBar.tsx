@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { trackEvent } from '../lib/analytics';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { trackEvent } from '@/lib/analytics';
 
 const navItems = [
     { name: 'Home', href: '#home' },
@@ -12,11 +14,18 @@ const navItems = [
 ];
 
 const NavBar = () => {
+    const pathname = usePathname();
+    const isHomePage = pathname === '/';
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
+        if (!isHomePage) {
+            setIsMobileMenuOpen(false);
+            return;
+        }
+
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
@@ -36,9 +45,11 @@ const NavBar = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [isHomePage]);
 
     const handleNavClick = (name: string, href: string) => {
+        if (!isHomePage) return;
+
         trackEvent('nav_click', { section: name });
 
         // 1. Close mobile menu first if open
@@ -70,17 +81,25 @@ const NavBar = () => {
                         }`}
                 >
                     {/* Logo */}
-                    <motion.a
-                        href="#home"
-                        onClick={() => handleNavClick('Home', '#home')}
+                    <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent cursor-pointer"
                     >
-                        Bandan.
-                    </motion.a>
+                        <Link
+                            href="/"
+                            onClick={() => {
+                                if (isHomePage) {
+                                    handleNavClick('Home', '#home');
+                                }
+                            }}
+                            className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent cursor-pointer"
+                        >
+                            Bandan.
+                        </Link>
+                    </motion.div>
 
                     {/* Desktop Nav */}
+                    {isHomePage && (
                     <div className="hidden md:flex items-center gap-8">
                         {navItems.map((item, index) => (
                             <motion.a
@@ -99,8 +118,10 @@ const NavBar = () => {
                             </motion.a>
                         ))}
                     </div>
+                    )}
 
                     {/* Mobile Menu Toggle */}
+                    {isHomePage && (
                     <button
                         className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -128,12 +149,13 @@ const NavBar = () => {
                             )}
                         </svg>
                     </button>
+                    )}
                 </div>
             </div>
 
             {/* Mobile Menu */}
             <AnimatePresence>
-                {isMobileMenuOpen && (
+                {isHomePage && isMobileMenuOpen && (
                     <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}

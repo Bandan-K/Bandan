@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { HeroSectionData } from '../../lib/services/profile';
+import { HeroSectionData } from '@/lib/services/profile';
 import HeroStats from './HeroStats';
 
 interface HeroSectionProps {
