@@ -1,17 +1,25 @@
 import HeroSection from '@/components/hero';
 import SkillsSection from '@/components/skills';
-import AppShowcase from '@/components/AppShowcase';
+import ExperienceSection from '@/components/experience';
 import DevelopmentProcess from '@/components/DevelopmentProcess';
 import ContactSection from '@/components/ContactSection';
 import { getProfileDetails } from '@/lib/services/profile';
+import { EXPERIENCE } from '@/components/experience/data';
+import { formatExperienceStat, totalMonths } from '@/lib/experience';
+
+// Statically render and refresh the Firestore-backed profile data hourly (ISR)
+export const revalidate = 3600;
 
 export default async function MobileDevPortfolio() {
 	const profileData = await getProfileDetails();
+	const now = new Date();
+	const experienceStat = formatExperienceStat(totalMonths(EXPERIENCE.map((e) => e.range), now));
 
 	return (
-		<main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white overflow-x-hidden">
-			<HeroSection initialData={profileData?.heroSection} />
+		<main className="min-h-screen bg-linear-to-b from-gray-900 to-gray-800 text-white overflow-x-hidden">
+			<HeroSection initialData={profileData?.heroSection} experience={experienceStat} />
 			<SkillsSection initialSkills={profileData?.skillsSection} />
+			<ExperienceSection asOf={now.toISOString()} />
 			{/* <AppShowcase /> */}
 			<DevelopmentProcess />
 			<ContactSection />

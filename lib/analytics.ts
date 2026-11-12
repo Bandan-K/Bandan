@@ -18,7 +18,7 @@ const getVisitorId = () => {
 /**
  * Tracks an event across both Firebase Analytics and Realtime Database.
  */
-export const trackEvent = async (eventName: string, params: Record<string, any> = {}) => {
+export const trackEvent = async (eventName: string, params: Record<string, unknown> = {}) => {
 	try {
 		// 1. Log to Firebase Analytics
 		const analytics = await initAnalytics();

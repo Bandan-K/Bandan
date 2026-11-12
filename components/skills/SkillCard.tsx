@@ -13,7 +13,7 @@ const SkillCard = ({ skill, onClick }: SkillCardProps) => {
     return (
         <button
             onClick={() => onClick(skill)}
-            className={`group relative text-left w-full backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 transition-all ${style.cardBg} h-full cursor-pointer hover:scale-[1.02] active:scale-[0.98] duration-300`}
+            className={`group relative text-left w-full backdrop-blur-xs p-4 rounded-xl border border-gray-700/50 transition-all ${style.cardBg} h-full cursor-pointer hover:scale-[1.02] active:scale-[0.98] duration-300`}
         >
             <div className="flex flex-wrap items-center justify-between gap-3 relative z-10">
                 <div className="flex items-center gap-2 sm:gap-3">

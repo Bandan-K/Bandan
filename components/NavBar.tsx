@@ -3,12 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { trackEvent } from '@/lib/analytics';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const navItems = [
     { name: 'Home', href: '#home' },
     { name: 'Expertise', href: '#skills' },
+    { name: 'Experience', href: '#experience' },
     { name: 'Process', href: '#process' },
     { name: 'Contact', href: '#contact' },
 ];
@@ -21,16 +24,13 @@ const NavBar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
-        if (!isHomePage) {
-            setIsMobileMenuOpen(false);
-            return;
-        }
+        if (!isHomePage) return;
 
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
             // Simple active section detection
-            const sections = ['home', 'skills', 'process', 'contact'];
+            const sections = ['home', 'skills', 'experience', 'process', 'contact'];
             for (const section of sections) {
                 const element = document.getElementById(section);
                 if (element) {
@@ -70,13 +70,18 @@ const NavBar = () => {
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${isScrolled ? 'py-2 sm:py-4' : 'py-4 sm:py-6'
+            className={`fixed top-0 left-0 right-0 z-100 transition-all duration-500 ${isScrolled ? 'py-2 sm:py-4' : 'py-4 sm:py-6'
                 }`}
         >
+            {/* Blur/fade strip so scrolling content doesn't show behind the floating bar */}
+            <div
+                aria-hidden="true"
+                className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-24 sm:h-28 backdrop-blur-md bg-linear-to-b from-gray-900/80 to-transparent mask-[linear-gradient(to_bottom,black_55%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_55%,transparent)]"
+            />
             <div className="container mx-auto px-4">
                 <div
                     className={`max-w-4xl mx-auto backdrop-blur-md rounded-2xl border transition-all duration-500 flex items-center justify-between px-6 py-2 sm:py-3 ${isScrolled
-                        ? 'bg-gray-900/80 border-white/10 shadow-2xl shadow-black/50'
+                        ? 'bg-gray-900/80 border-white/10 shadow-2xl shadow-black/20'
                         : 'bg-transparent border-transparent'
                         }`}
                 >
@@ -92,12 +97,16 @@ const NavBar = () => {
                                     handleNavClick('Home', '#home');
                                 }
                             }}
-                            className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent cursor-pointer"
+                            className="flex items-center gap-2 cursor-pointer"
                         >
-                            Bandan.
+                            <Image src="/logo-light.png" alt="" width={36} height={36} priority className="logo-mark h-9 w-9 object-contain" />
+                            <span className="text-xl font-bold bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                                Bandan.
+                            </span>
                         </Link>
                     </motion.div>
 
+                    <div className="flex items-center gap-2 sm:gap-4">
                     {/* Desktop Nav */}
                     {isHomePage && (
                     <div className="hidden md:flex items-center gap-8">
@@ -120,6 +129,7 @@ const NavBar = () => {
                     </div>
                     )}
 
+                    <ThemeToggle />
                     {/* Mobile Menu Toggle */}
                     {isHomePage && (
                     <button
@@ -150,6 +160,7 @@ const NavBar = () => {
                         </svg>
                     </button>
                     )}
+                    </div>
                 </div>
             </div>
 
@@ -160,7 +171,7 @@ const NavBar = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="absolute top-full left-0 right-0 md:hidden bg-gray-900/95 backdrop-blur-xl border-b border-white/5 overflow-hidden z-[90]"
+                        className="absolute top-full left-0 right-0 md:hidden bg-gray-900/95 backdrop-blur-xl border-b border-white/5 overflow-hidden z-90"
                     >
                         <div className="container mx-auto px-8 py-8 flex flex-col gap-6">
                             {navItems.map((item) => (

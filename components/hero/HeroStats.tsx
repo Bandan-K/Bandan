@@ -2,7 +2,7 @@ import React from 'react';
 import { HeroSectionData } from '@/lib/services/profile';
 
 interface HeroStatsProps {
-    data: HeroSectionData | null;
+    data: Partial<HeroSectionData> | null;
     isLoading: boolean;
 }
 
@@ -51,10 +51,10 @@ const HeroStats = ({ data, isLoading }: HeroStatsProps) => {
             {stats.map((stat, index) => (
                 <div
                     key={index}
-                    className="group relative bg-gray-800/30 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300"
+                    className="group relative bg-gray-800/30 backdrop-blur-xs rounded-xl sm:rounded-2xl p-3 sm:p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300"
                 >
                     {/* Decorative gradient background */}
-                    <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-linear-to-br from-gray-800/50 to-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     {/* Content */}
                     <div className="relative z-10 text-center sm:text-left">
@@ -65,7 +65,7 @@ const HeroStats = ({ data, isLoading }: HeroStatsProps) => {
                             {isLoading ? (
                                 <div className="h-8 sm:h-9 w-16 bg-gray-700/50 rounded-lg animate-shimmer overflow-hidden mx-auto sm:mx-0" />
                             ) : (
-                                <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text group-hover:from-blue-300 group-hover:to-purple-300 transition-all duration-300">
+                                <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-linear-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text group-hover:from-blue-300 group-hover:to-purple-300 transition-all duration-300">
                                     {stat.value}
                                 </div>
                             )}
@@ -80,7 +80,7 @@ const HeroStats = ({ data, isLoading }: HeroStatsProps) => {
                     <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-transparent group-hover:border-purple-500/30 rounded-br-xl transition-colors duration-500"></div>
 
                     {/* Hover glow effect */}
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-15 blur-lg transition-opacity duration-500"></div>
+                    <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-15 blur-lg transition-opacity duration-500"></div>
                 </div>
             ))}
         </div>

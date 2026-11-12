@@ -12,15 +12,11 @@ import SkillModal from './SkillModal';
 
 const SkillsSection = ({ initialSkills }: { initialSkills?: Skill[] }) => {
     const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
-    const [fetchedSkills, setFetchedSkills] = useState<Skill[]>(initialSkills || []);
-    const [isLoading, setIsLoading] = useState(!initialSkills);
+    const [clientSkills, setClientSkills] = useState<Skill[]>([]);
+    const fetchedSkills = initialSkills ?? clientSkills;
 
     useEffect(() => {
-        if (initialSkills) {
-            setFetchedSkills(initialSkills);
-            setIsLoading(false);
-            return;
-        }
+        if (initialSkills) return;
         const fetchSkills = async () => {
             try {
                 const docRef = doc(db, 'ProfileDetails', 'MyDetail');
@@ -29,13 +25,11 @@ const SkillsSection = ({ initialSkills }: { initialSkills?: Skill[] }) => {
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     if (data.skillsSection) {
-                        setFetchedSkills(data.skillsSection as Skill[]);
+                        setClientSkills(data.skillsSection as Skill[]);
                     }
                 }
             } catch (error) {
                 console.error("Error fetching skills: ", error);
-            } finally {
-                setIsLoading(false);
             }
         };
 

@@ -77,7 +77,7 @@ const AppShowcase = () => {
 						className="group relative bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl hover:shadow-blue-500/10"
 					>
 						<div className="flex flex-col md:flex-row justify-between items-start gap-4">
-							<div className="flex-grow space-y-2">
+							<div className="grow space-y-2">
 								<div className="flex items-center gap-3 flex-wrap">
 									<h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
 										{project.title}
@@ -159,7 +159,7 @@ const AppShowcase = () => {
 
 			<div className="container mx-auto px-4 max-w-6xl">
 				<div className="space-y-4 mb-16 text-center">
-					<h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent inline-block">
+					<h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent inline-block">
 						App Showcase
 					</h2>
 					<p className="text-gray-400 max-w-2xl mx-auto">
@@ -170,9 +170,9 @@ const AppShowcase = () => {
 				{/* Architectural Highlights */}
 				<div className="mb-16">
 					<div className="flex items-center gap-4 mb-8">
-						<div className="h-px flex-grow bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
+						<div className="h-px grow bg-linear-to-r from-transparent via-blue-500/20 to-transparent" />
 						<h3 className="text-lg font-bold text-gray-300 uppercase tracking-widest px-4">Architectural Highlights</h3>
-						<div className="h-px flex-grow bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
+						<div className="h-px grow bg-linear-to-r from-transparent via-blue-500/20 to-transparent" />
 					</div>
 					{renderProjectList('major')}
 				</div>
@@ -180,9 +180,9 @@ const AppShowcase = () => {
 				{/* Legacy Evolution */}
 				<div className="mb-16">
 					<div className="flex items-center gap-4 mb-8">
-						<div className="h-px flex-grow bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
+						<div className="h-px grow bg-linear-to-r from-transparent via-purple-500/20 to-transparent" />
 						<h3 className="text-lg font-bold text-gray-300 uppercase tracking-widest px-4">Legacy Evolution</h3>
-						<div className="h-px flex-grow bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
+						<div className="h-px grow bg-linear-to-r from-transparent via-purple-500/20 to-transparent" />
 					</div>
 					{renderProjectList('maintenance')}
 				</div>
@@ -190,9 +190,9 @@ const AppShowcase = () => {
 				{/* Creative Lab */}
 				<div className="mb-16">
 					<div className="flex items-center gap-4 mb-8">
-						<div className="h-px flex-grow bg-gradient-to-r from-transparent via-pink-500/20 to-transparent" />
+						<div className="h-px grow bg-linear-to-r from-transparent via-pink-500/20 to-transparent" />
 						<h3 className="text-lg font-bold text-gray-300 uppercase tracking-widest px-4">Creative Lab</h3>
-						<div className="h-px flex-grow bg-gradient-to-r from-transparent via-pink-500/20 to-transparent" />
+						<div className="h-px grow bg-linear-to-r from-transparent via-pink-500/20 to-transparent" />
 					</div>
 					{renderProjectList('personal')}
 				</div>
@@ -205,7 +205,7 @@ const AppShowcase = () => {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4"
+						className="fixed inset-0 bg-black/80 backdrop-blur-md z-100 flex items-center justify-center p-4"
 						onClick={() => setSelectedProject(null)}
 					>
 						<motion.div

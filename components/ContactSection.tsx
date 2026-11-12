@@ -11,7 +11,8 @@ const ContactSection = () => {
 	const handleResumeClick = () => {
 		// Detection logic for PDF support
 		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-		const supportsPDF = navigator.pdfViewerEnabled || (window as any).PDFObject !== undefined;
+		const supportsPDF =
+			navigator.pdfViewerEnabled || (typeof window !== 'undefined' && 'PDFObject' in window);
 
 		if (isMobile || !supportsPDF) {
 			window.open(resumeUrl, '_blank');
@@ -21,10 +22,10 @@ const ContactSection = () => {
 	};
 
 	return (
-		<section id="contact" className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black overflow-hidden">
+		<section id="contact" className="py-20 px-4 bg-linear-to-b from-gray-900 to-pageend overflow-hidden">
 			<div className="max-w-4xl mx-auto">
 				<motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center space-y-8">
-					<h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+					<h2 className="text-3xl font-bold bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
 						Let&apos;s Build Exceptional iOS Apps Together
 					</h2>
 					<p className="text-gray-400 max-w-2xl mx-auto">

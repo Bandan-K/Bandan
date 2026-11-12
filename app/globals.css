@@ -1,6 +1,111 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-white: rgb(var(--white));
+  --color-pageend: rgb(var(--page-end));
+  --color-onaccent: #ffffff;
+
+  --color-gray-100: rgb(var(--gray-100));
+  --color-gray-300: rgb(var(--gray-300));
+  --color-gray-400: rgb(var(--gray-400));
+  --color-gray-500: rgb(var(--gray-500));
+  --color-gray-600: rgb(var(--gray-600));
+  --color-gray-700: rgb(var(--gray-700));
+  --color-gray-800: rgb(var(--gray-800));
+  --color-gray-900: rgb(var(--gray-900));
+
+  --color-blue-300: rgb(var(--blue-300));
+  --color-blue-400: rgb(var(--blue-400));
+
+  --color-purple-300: rgb(var(--purple-300));
+  --color-purple-400: rgb(var(--purple-400));
+
+  --color-green-400: rgb(var(--green-400));
+
+  --color-indigo-400: rgb(var(--indigo-400));
+
+  --color-yellow-400: rgb(var(--yellow-400));
+
+  --color-red-400: rgb(var(--red-400));
+
+  /* Keep the Tailwind v3 shades the site was designed with (v4's defaults are more saturated). */
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-purple-500: #a855f7;
+  --color-purple-600: #9333ea;
+  --color-pink-500: #ec4899;
+  --color-green-500: #22c55e;
+  --color-emerald-500: #10b981;
+  --color-indigo-500: #6366f1;
+  --color-red-500: #ef4444;
+  --color-yellow-500: #eab308;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* Theme palettes (space-separated RGB so Tailwind opacity modifiers work). */
+:root,
+:root[data-theme='dark'] {
+	color-scheme: dark;
+	--white: 255 255 255;
+	--gray-100: 243 244 246;
+	--gray-300: 209 213 219;
+	--gray-400: 156 163 175;
+	--gray-500: 107 114 128;
+	--gray-600: 75 85 99;
+	--gray-700: 55 65 81;
+	--gray-800: 31 41 55;
+	--gray-900: 17 24 39;
+	--page-end: 0 0 0;
+	--blue-300: 147 197 253;
+	--blue-400: 96 165 250;
+	--purple-300: 216 180 254;
+	--purple-400: 192 132 252;
+	--green-400: 74 222 128;
+	--indigo-400: 129 140 248;
+	--yellow-400: 250 204 21;
+	--red-400: 248 113 113;
+}
+
+:root[data-theme='light'] {
+	color-scheme: light;
+	--white: 15 23 42;
+	--gray-100: 15 23 42;
+	--gray-300: 51 65 85;
+	--gray-400: 71 85 105;
+	--gray-500: 100 116 139;
+	--gray-600: 148 163 184;
+	--gray-700: 203 213 225;
+	--gray-800: 226 232 240;
+	--gray-900: 248 250 252;
+	--page-end: 226 232 240;
+	--blue-300: 59 130 246;
+	--blue-400: 37 99 235;
+	--purple-300: 168 85 247;
+	--purple-400: 147 51 234;
+	--green-400: 22 163 74;
+	--indigo-400: 79 70 229;
+	--yellow-400: 202 138 4;
+	--red-400: 220 38 38;
+}
 
 html {
 	scroll-behavior: smooth;
@@ -8,7 +113,12 @@ html {
 }
 
 body {
-	background-color: #000;
+	background-color: rgb(var(--gray-900));
+}
+
+/* The logo asset is white-on-transparent; invert it on light backgrounds. */
+:root[data-theme='light'] .logo-mark {
+	filter: invert(1);
 }
 
 @keyframes shimmer {

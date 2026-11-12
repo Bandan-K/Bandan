@@ -102,10 +102,10 @@ const DevelopmentProcess = () => {
             {processes.map((process, index) => (
               <div key={index} className="group relative">
                 <div
-                  className={`absolute inset-0 bg-gradient-to-r ${process.colorClasses.gradientFrom} ${process.colorClasses.gradientTo} rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500`}
+                  className={`absolute inset-0 bg-linear-to-r ${process.colorClasses.gradientFrom} ${process.colorClasses.gradientTo} rounded-2xl opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-500`}
                 ></div>
                 <div
-                  className={`relative bg-gradient-to-b from-gray-800/50 to-gray-900/50 p-8 rounded-2xl backdrop-blur-sm border border-gray-700/50 ${process.colorClasses.hoverBorder} transition-colors duration-300`}
+                  className={`relative bg-linear-to-b from-gray-800/90 to-gray-900/90 p-8 rounded-2xl backdrop-blur-xs border border-gray-700/50 ${process.colorClasses.hoverBorder} transition-colors duration-300`}
                 >
                   <div className="mb-6">
                     <div
@@ -131,7 +131,7 @@ const DevelopmentProcess = () => {
                     {process.steps.map((step, stepIndex) => (
                       <div key={stepIndex} className="flex items-start gap-3">
                         <div
-                          className={`w-6 h-6 rounded-full ${process.colorClasses.bg} flex items-center justify-center flex-shrink-0 mt-0.5`}
+                          className={`w-6 h-6 rounded-full ${process.colorClasses.bg} flex items-center justify-center shrink-0 mt-0.5`}
                         >
                           <span
                             className={`text-sm ${process.colorClasses.text}`}

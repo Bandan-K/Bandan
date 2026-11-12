@@ -107,7 +107,15 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
+			<head>
+				{/* Resolve theme before first paint: saved choice, else the system preference. */}
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='dark'}})()`,
+					}}
+				/>
+			</head>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<AnalyticsTracker />
 				<NavBar />
@@ -115,9 +123,10 @@ export default function RootLayout({
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{
-						__html: JSON.stringify([
+						__html: JSON.stringify({
+						'@context': 'https://schema.org',
+						'@graph': [
 							{
-								'@context': 'https://schema.org',
 								'@type': 'Person',
 								name: 'Bandan Kumar Mahto',
 								url: 'https://bandan-kumar.vercel.app',
@@ -125,13 +134,13 @@ export default function RootLayout({
 								sameAs: ['https://github.com/bandan-k', 'https://www.linkedin.com/in/bandan-kumar/'],
 							},
 							{
-								'@context': 'https://schema.org',
 								'@type': 'WebSite',
 								name: 'Bandan Kumar Mahto',
 								alternateName: ['Bandan', 'Bandan Portfolio', 'Bandan Kumar', 'Bandan Kumar - iOS Developer'],
 								url: 'https://bandan-kumar.vercel.app',
 							},
-						]),
+						],
+						}),
 					}}
 				/>
 			</body>

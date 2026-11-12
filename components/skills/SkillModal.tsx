@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Skill } from '@/lib/services/profile';
 import { CATEGORY_STYLES } from './constants';
@@ -19,7 +20,7 @@ const SkillModal = ({ skill, onClose }: SkillModalProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[100] p-4 sm:p-6"
+            className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-100 p-4 sm:p-6"
             onClick={onClose}
         >
             <motion.div
@@ -67,7 +68,7 @@ const SkillModal = ({ skill, onClose }: SkillModalProps) => {
                             className="flex-1 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] group/search"
                             onClick={() => trackEvent('skill_search_click', { skill_name: skill.name })}
                         >
-                            <img src="/googleIcon.png" alt="Google" className="w-5 h-5 object-contain group-hover:brightness-110" />
+                            <Image src="/googleIcon.png" alt="Google" width={20} height={20} className="w-5 h-5 object-contain group-hover:brightness-110" />
                             <span className="font-medium text-white text-sm">Search Tech</span>
                         </a>
 

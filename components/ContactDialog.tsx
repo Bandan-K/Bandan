@@ -1,4 +1,4 @@
-'use client';
+    'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { trackEvent } from '@/lib/analytics';
@@ -16,7 +16,7 @@ const ContactDialog = () => {
 		<>
 			<button
 				onClick={openDialog}
-				className="px-8 py-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full font-medium hover:opacity-90 transition-opacity inline-flex items-center justify-center gap-2 shadow-lg shadow-purple-500/20"
+				className="px-8 py-3 text-onaccent bg-linear-to-r from-blue-400 to-purple-500 rounded-full font-medium hover:opacity-90 transition-opacity inline-flex items-center justify-center gap-2 shadow-lg shadow-purple-500/20"
 			>
 				<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
 					<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -32,7 +32,7 @@ const ContactDialog = () => {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+						className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-110 p-4"
 						onClick={closeDialog}
 					>
 						<motion.div
@@ -49,11 +49,11 @@ const ContactDialog = () => {
 
 							<div className="relative z-10 space-y-6">
 								<div className="space-y-2 text-center">
-									<h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-										Let's Connect
+									<h3 className="text-2xl font-bold bg-linear-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+										Let&apos;s Connect
 									</h3>
 									<p className="text-gray-400 text-sm leading-relaxed">
-										Choose your preferred way to start a conversation. I'm looking forward to hearing from you!
+										Choose your preferred way to start a conversation. I&apos;m looking forward to hearing from you!
 									</p>
 								</div>
 
