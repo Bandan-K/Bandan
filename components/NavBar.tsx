@@ -43,7 +43,7 @@ const NavBar = () => {
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isHomePage]);
 
@@ -70,6 +70,7 @@ const NavBar = () => {
 
     return (
         <nav
+            aria-label="Primary"
             className={`fixed top-0 left-0 right-0 z-100 transition-all duration-500 ${isScrolled ? 'py-2 sm:py-4' : 'py-4 sm:py-6'
                 }`}
         >
@@ -115,6 +116,7 @@ const NavBar = () => {
                                 key={item.name}
                                 href={item.href}
                                 onClick={() => handleNavClick(item.name, item.href)}
+                                aria-current={activeSection === item.href.replace('#', '') ? 'true' : undefined}
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
@@ -134,6 +136,8 @@ const NavBar = () => {
                     {isHomePage && (
                     <button
                         className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
+                        aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                        aria-expanded={isMobileMenuOpen}
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         <svg
