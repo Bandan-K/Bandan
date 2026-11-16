@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Reveal from '@/components/Reveal';
 import { EXPERIENCE, EDUCATION, CERTIFICATIONS, type Certification } from './data';
 import CertificateModal from './CertificateModal';
 import { formatDuration, formatPeriod, monthsInRange, totalMonths } from '@/lib/experience';
@@ -19,10 +20,12 @@ const ExperienceSection = ({ asOf }: ExperienceSectionProps) => {
 	return (
 		<section id="experience" className="py-16 md:py-20 relative">
 			<div className="container mx-auto px-4">
-				<h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-center">Experience</h2>
-				<p className="text-sm sm:text-base text-gray-400 text-center mb-10 sm:mb-14 max-w-2xl mx-auto px-4">
-					Building and shipping production iOS apps · {total} of experience
-				</p>
+				<Reveal>
+					<h2 data-jarvis="section:experience" className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-center">Experience</h2>
+					<p className="text-sm sm:text-base text-gray-400 text-center mb-10 sm:mb-14 max-w-2xl mx-auto px-4">
+						Building and shipping production iOS apps · {total} of experience
+					</p>
+				</Reveal>
 
 				<ol className="relative max-w-3xl mx-auto border-l border-gray-700/60 ml-3 sm:ml-auto space-y-10">
 					{EXPERIENCE.map((item) => (
@@ -39,7 +42,10 @@ const ExperienceSection = ({ asOf }: ExperienceSectionProps) => {
 									!item.range.end ? 'bg-green-400' : 'bg-blue-400'
 								}`}
 							/>
-							<div className="rounded-xl border border-gray-700/50 bg-gray-800/30 p-5 sm:p-6 backdrop-blur-xs hover:border-blue-500/30 transition-colors">
+							<div
+								data-jarvis={`exp:${item.company}|${item.role}`}
+								className="rounded-xl border border-gray-700/50 bg-gray-800/30 p-5 sm:p-6 backdrop-blur-xs hover:border-blue-500/30 transition-colors"
+							>
 								<div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
 									<h3 className="text-lg sm:text-xl font-semibold text-gray-100">{item.role}</h3>
 									<span className="text-sm text-gray-400">
@@ -69,7 +75,8 @@ const ExperienceSection = ({ asOf }: ExperienceSectionProps) => {
 					))}
 				</ol>
 
-				<div className="max-w-3xl mx-auto mt-12 rounded-xl border border-gray-700/50 bg-gray-800/20 p-5 sm:p-6">
+				<Reveal className="max-w-3xl mx-auto mt-12">
+				<div data-jarvis="edu" className="rounded-xl border border-gray-700/50 bg-gray-800/20 p-5 sm:p-6">
 					<p className="text-xs uppercase tracking-wider text-gray-500 mb-2">Education</p>
 					<div className="flex flex-wrap items-baseline justify-between gap-x-4">
 						<h3 className="text-base sm:text-lg font-semibold text-gray-100">{EDUCATION.degree}</h3>
@@ -78,8 +85,10 @@ const ExperienceSection = ({ asOf }: ExperienceSectionProps) => {
 					<p className="text-blue-400 text-sm mt-1">{EDUCATION.school}</p>
 					<p className="text-gray-400 text-sm mt-2">{EDUCATION.details}</p>
 				</div>
+				</Reveal>
 
-				<div className="max-w-3xl mx-auto mt-6 rounded-xl border border-gray-700/50 bg-gray-800/20 p-5 sm:p-6">
+				<Reveal className="max-w-3xl mx-auto mt-6" delay={0.1}>
+				<div data-jarvis="certs" className="rounded-xl border border-gray-700/50 bg-gray-800/20 p-5 sm:p-6">
 					<p className="text-xs uppercase tracking-wider text-gray-500 mb-4">Certifications</p>
 					<ul className="grid gap-3 sm:grid-cols-2">
 						{CERTIFICATIONS.map((c) => (
@@ -87,6 +96,9 @@ const ExperienceSection = ({ asOf }: ExperienceSectionProps) => {
 								<button
 									type="button"
 									onClick={() => setOpenCert(c)}
+									data-jarvis="cert"
+									data-jarvis-title={c.name}
+									data-jarvis-text={`${[c.issuer, c.date].filter(Boolean).join(' · ')}. Click to open the certificate.`}
 									className="group flex flex-col items-start justify-start w-full h-full text-left rounded-lg border border-gray-700/50 bg-gray-800/30 p-3 hover:border-blue-500/40 transition-colors cursor-pointer"
 								>
 									<span className="block text-sm sm:text-base text-gray-100">{c.name}</span>
@@ -99,6 +111,7 @@ const ExperienceSection = ({ asOf }: ExperienceSectionProps) => {
 						))}
 					</ul>
 				</div>
+				</Reveal>
 			</div>
 
 			<CertificateModal cert={openCert} onClose={() => setOpenCert(null)} />

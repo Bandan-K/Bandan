@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeroSectionData } from '@/lib/services/profile';
+import Reveal from '@/components/Reveal';
 
 interface HeroStatsProps {
     data: Partial<HeroSectionData> | null;
@@ -49,8 +50,10 @@ const HeroStats = ({ data, isLoading }: HeroStatsProps) => {
     return (
         <div className="max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-12 px-2">
             {stats.map((stat, index) => (
+                <Reveal key={index} delay={0.5 + index * 0.1} y={30}>
                 <div
-                    key={index}
+                    data-jarvis={`stat:${stat.label.toLowerCase()}`}
+                    data-jarvis-title={`${stat.value} · ${stat.label}`}
                     className="group relative bg-gray-800/30 backdrop-blur-xs rounded-xl sm:rounded-2xl p-3 sm:p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300"
                 >
                     {/* Decorative gradient background */}
@@ -82,6 +85,7 @@ const HeroStats = ({ data, isLoading }: HeroStatsProps) => {
                     {/* Hover glow effect */}
                     <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-15 blur-lg transition-opacity duration-500"></div>
                 </div>
+                </Reveal>
             ))}
         </div>
     );
