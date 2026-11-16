@@ -139,6 +139,211 @@ body {
 	}
 }
 
+@keyframes gradient {
+	0%,
+	100% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+}
+
+.animate-gradient {
+	animation: gradient 6s ease infinite;
+}
+
+/* Native scrollbar hidden: the top ScrollProgress bar replaces it. Scrolling still works. */
+html {
+	scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+	display: none;
+}
+
+::selection {
+	background: rgb(var(--blue-400) / 0.35);
+}
+
+:focus-visible {
+	outline: 2px solid rgb(var(--blue-400));
+	outline-offset: 3px;
+}
+
+/* Honor the OS "reduce motion" setting across CSS animations and smooth scrolling. */
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	*,
+	::before,
+	::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* Robot companion poses (SVG parts animate around their own box). */
+.robot * {
+	transform-box: fill-box;
+}
+.robot {
+	filter: drop-shadow(0 8px 12px rgb(0 0 0 / 0.3));
+}
+.robot-body {
+	transform-origin: center bottom;
+}
+.robot-arm-l,
+.robot-arm-r {
+	transform-origin: center top;
+}
+.robot-idle .robot-body {
+	animation: robot-float 3s ease-in-out infinite;
+}
+.robot-idle .robot-arm-l {
+	animation: robot-arm-sway 3s ease-in-out infinite;
+}
+.robot-idle .robot-arm-r {
+	animation: robot-arm-sway 3s ease-in-out infinite reverse;
+}
+.robot-idle .robot-shadow {
+	transform-origin: center;
+	animation: robot-shadow 3s ease-in-out infinite;
+}
+.robot-thrust {
+	transform-origin: center top;
+	animation: robot-thrust 0.9s ease-in-out infinite;
+}
+.robot-chest {
+	animation: robot-pulse 2.4s ease-in-out infinite;
+}
+.robot-eyes {
+	transform-origin: center;
+	animation: robot-blink 4.5s infinite;
+}
+.robot-sheen {
+	animation: robot-sheen 7s ease-in-out infinite;
+}
+.robot-pupils {
+	transition: transform 0.12s ease-out;
+}
+.robot-halo {
+	animation: robot-halo 4s ease-in-out infinite;
+	transition: opacity 0.3s;
+}
+.group\/robot:hover .robot-halo {
+	opacity: 1;
+	transform: scale(1.12);
+}
+.robot-pop {
+	animation: robot-pop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.robot-wave .robot-arm-r {
+	transform-origin: center top;
+	animation: robot-wave 0.5s ease-in-out 3;
+}
+.robot-jump .robot-body {
+	animation: robot-jump 0.8s ease-out 1;
+}
+.robot-spin .robot-body {
+	transform-origin: center;
+	animation: robot-spin 0.9s ease-in-out 1;
+}
+.robot-dance .robot-body {
+	animation: robot-dance 0.55s ease-in-out infinite;
+}
+.robot-dance .robot-arm-l {
+	animation: robot-wave 0.55s ease-in-out infinite reverse;
+}
+.robot-dance .robot-arm-r {
+	animation: robot-wave 0.55s ease-in-out infinite;
+}
+.robot-drag .robot-body {
+	transform-origin: center top;
+	animation: robot-dangle 0.7s ease-in-out infinite;
+}
+.robot-fall .robot-body {
+	transform-origin: center;
+	animation: robot-tumble 0.9s linear infinite;
+}
+.robot-sleep .robot-body {
+	animation: robot-float 5s ease-in-out infinite;
+}
+.robot-sleep .robot-thrust {
+	animation: none;
+	opacity: 0.35;
+}
+.robot-zzz {
+	animation: robot-zzz 2.4s ease-in-out infinite;
+}
+
+@keyframes robot-float {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-5px); }
+}
+@keyframes robot-arm-sway {
+	0%, 100% { transform: rotate(4deg); }
+	50% { transform: rotate(-4deg); }
+}
+@keyframes robot-shadow {
+	0%, 100% { transform: scale(1); opacity: 0.25; }
+	50% { transform: scale(0.82); opacity: 0.14; }
+}
+@keyframes robot-thrust {
+	0%, 100% { transform: scale(1, 1); opacity: 0.9; }
+	50% { transform: scale(0.8, 1.25); opacity: 0.55; }
+}
+@keyframes robot-halo {
+	0%, 100% { opacity: 0.55; }
+	50% { opacity: 0.9; }
+}
+@keyframes robot-pop {
+	from { opacity: 0; transform: translateY(6px) scale(0.92); }
+	to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes robot-sheen {
+	0% { transform: translateX(0) skewX(-20deg); }
+	30%, 100% { transform: translateX(150px) skewX(-20deg); }
+}
+@keyframes robot-pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.35; }
+}
+@keyframes robot-blink {
+	0%, 94%, 100% { transform: scaleY(1); }
+	97% { transform: scaleY(0.1); }
+}
+@keyframes robot-wave {
+	0%, 100% { transform: rotate(0deg); }
+	50% { transform: rotate(-55deg); }
+}
+@keyframes robot-jump {
+	0% { transform: translateY(0) scale(1, 1); }
+	20% { transform: translateY(0) scale(1.08, 0.9); }
+	55% { transform: translateY(-22px) scale(0.95, 1.06); }
+	100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes robot-spin {
+	to { transform: rotate(360deg); }
+}
+@keyframes robot-dance {
+	0%, 100% { transform: rotate(-6deg) translateY(0); }
+	50% { transform: rotate(6deg) translateY(-4px); }
+}
+@keyframes robot-dangle {
+	0%, 100% { transform: rotate(-7deg); }
+	50% { transform: rotate(7deg); }
+}
+@keyframes robot-tumble {
+	to { transform: rotate(360deg); }
+}
+@keyframes robot-zzz {
+	0% { opacity: 0; transform: translate(0, 4px); }
+	40% { opacity: 1; }
+	100% { opacity: 0; transform: translate(6px, -10px); }
+}
+
 .animate-shimmer {
 	background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0) 100%);
 	background-size: 1000px 100%;

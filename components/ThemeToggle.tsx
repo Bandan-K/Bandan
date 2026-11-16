@@ -10,6 +10,7 @@ const ThemeToggle = () => {
 	return (
 		<button
 			type="button"
+			data-jarvis="nav:theme"
 			onClick={() => setTheme(next)}
 			aria-label={`Switch to ${next} mode`}
 			title={`Switch to ${next} mode`}
