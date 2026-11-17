@@ -3,6 +3,10 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
 import NavBar from '@/components/NavBar';
+import ScrollProgress from '@/components/ScrollProgress';
+import CursorGlow from '@/components/CursorGlow';
+import Footer from '@/components/Footer';
+import RobotCompanion from '@/components/RobotCompanion';
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -107,7 +111,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
 			<head>
 				{/* Resolve theme before first paint: saved choice, else the system preference. */}
 				<script
@@ -117,9 +121,19 @@ export default function RootLayout({
 				/>
 			</head>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				<a
+					href="#main"
+					className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-200 focus:rounded-full focus:bg-blue-600 focus:px-5 focus:py-2 focus:text-onaccent"
+				>
+					Skip to content
+				</a>
 				<AnalyticsTracker />
+				<ScrollProgress />
+				<CursorGlow />
 				<NavBar />
 				{children}
+				<Footer />
+				<RobotCompanion />
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{

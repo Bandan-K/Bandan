@@ -24,8 +24,8 @@ const ContactSection = () => {
 	return (
 		<section id="contact" className="py-20 px-4 bg-linear-to-b from-gray-900 to-pageend overflow-hidden">
 			<div className="max-w-4xl mx-auto">
-				<motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center space-y-8">
-					<h2 className="text-3xl font-bold bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+				<motion.div initial={{ opacity: 0, y: 48, scale: 0.97 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: '0px 0px -12% 0px' }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }} className="text-center space-y-8">
+					<h2 data-jarvis="section:contact" className="text-3xl font-bold bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
 						Let&apos;s Build Exceptional iOS Apps Together
 					</h2>
 					<p className="text-gray-400 max-w-2xl mx-auto">
@@ -33,7 +33,7 @@ const ContactSection = () => {
 					</p>
 
 					{/* Location */}
-					<div className="flex items-center justify-center gap-2 text-gray-400">
+					<div data-jarvis="contact:location" className="flex items-center justify-center gap-2 text-gray-400">
 						<svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								strokeLinecap="round"
@@ -48,10 +48,13 @@ const ContactSection = () => {
 
 					{/* Contact Buttons */}
 					<div className="flex flex-col sm:flex-row justify-center gap-4">
-						<ContactDialog />
+						<div data-jarvis="contact:message" className="contents">
+							<ContactDialog />
+						</div>
 
 						<button
 							onClick={handleResumeClick}
+							data-jarvis="contact:resume"
 							className="px-8 py-3 bg-white/5 rounded-full font-medium hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2 border border-white/10 hover:border-blue-500/50 group"
 						>
 							<svg className="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 20 20">
@@ -70,6 +73,7 @@ const ContactSection = () => {
 					<div className="flex justify-center gap-6 pt-4">
 						<a
 							href="https://github.com/Bandan-K/Bandan-K"
+							data-jarvis="contact:github"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="text-gray-400 hover:text-white transition-all p-3 hover:bg-white/5 rounded-2xl border border-transparent hover:border-white/10"
@@ -80,6 +84,7 @@ const ContactSection = () => {
 						</a>
 						<a
 							href="http://www.linkedin.com/in/bandan-kumar"
+							data-jarvis="contact:linkedin"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="text-gray-400 hover:text-white transition-all p-3 hover:bg-white/5 rounded-2xl border border-transparent hover:border-white/10"
