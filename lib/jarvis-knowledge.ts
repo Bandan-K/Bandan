@@ -215,6 +215,21 @@ export const KNOWLEDGE: Record<string, Knowledge> = {
 	},
 
 	// Misc
+	'nav:link': {
+		title: 'Navigation',
+		text: 'Jumps to a section of the page with a smooth scroll.',
+		extra: ['The highlighted link follows you as you scroll. I did not do that one, honest.'],
+	},
+	'nav:top': {
+		title: 'Back to top',
+		text: 'Scrolls all the way back up to the start of the page.',
+		extra: ['Faster than the scroll wheel, and nobody judges.'],
+	},
+	'nav:contact': {
+		title: 'Contact',
+		text: 'Takes you to the contact section to get in touch with Bandan.',
+		extra: ['This is the button that matters. Go on.'],
+	},
 	'nav:theme': {
 		title: 'Theme',
 		text: 'Switches between light and dark mode. The site remembers your choice.',

@@ -184,6 +184,18 @@ html::-webkit-scrollbar {
 	}
 }
 
+/* The element Jarvis is currently explaining. */
+.jarvis-spot {
+	outline: 2px solid rgb(var(--blue-400) / 0.55);
+	outline-offset: 6px;
+	border-radius: 1rem;
+	animation: jarvis-spot 1.6s ease-in-out infinite;
+}
+@keyframes jarvis-spot {
+	0%, 100% { outline-color: rgb(var(--blue-400) / 0.25); }
+	50% { outline-color: rgb(var(--purple-400) / 0.7); }
+}
+
 /* Robot companion poses (SVG parts animate around their own box). */
 .robot * {
 	transform-box: fill-box;
@@ -263,10 +275,7 @@ html::-webkit-scrollbar {
 	transform-origin: center top;
 	animation: robot-dangle 0.7s ease-in-out infinite;
 }
-.robot-fall .robot-body {
-	transform-origin: center;
-	animation: robot-tumble 0.9s linear infinite;
-}
+
 .robot-sleep .robot-body {
 	animation: robot-float 5s ease-in-out infinite;
 }
@@ -334,9 +343,6 @@ html::-webkit-scrollbar {
 @keyframes robot-dangle {
 	0%, 100% { transform: rotate(-7deg); }
 	50% { transform: rotate(7deg); }
-}
-@keyframes robot-tumble {
-	to { transform: rotate(360deg); }
 }
 @keyframes robot-zzz {
 	0% { opacity: 0; transform: translate(0, 4px); }

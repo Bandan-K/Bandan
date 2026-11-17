@@ -79,8 +79,9 @@ const RobotCompanion = () => {
 	const poseRef = useRef<Pose>('idle');
 	const quietRef = useRef(false);
 	const touchRef = useRef(false);
-	const p = useRef({ x: 0, y: 0, vx: 0, vy: 0 });
-	const drag = useRef({ active: false, offX: 0, offY: 0, startX: 0, startY: 0, lastX: 0, lastT: 0, lastY: 0, vx: 0, vy: 0, moved: false });
+	const p = useRef({ x: 0, y: 0, vx: 0, vy: 0, a: 0, va: 0 });
+	const svgRef = useRef<SVGSVGElement>(null);
+	const drag = useRef({ active: false, offX: 0, offY: 0, startX: 0, startY: 0, lastX: 0, lastT: 0, lastY: 0, vx: 0, vy: 0, tx: 0, ty: 0, moved: false });
 	const raf = useRef(0);
 	const clicks = useRef(0);
 	const reactionIdx = useRef(0);
@@ -104,6 +105,8 @@ const RobotCompanion = () => {
 	const apply = useCallback(() => {
 		const el = boxRef.current;
 		if (el) el.style.transform = `translate3d(${p.current.x}px, ${p.current.y}px, 0)`;
+		const svg = svgRef.current;
+		if (svg) svg.style.transform = p.current.a ? `rotate(${p.current.a}deg)` : '';
 	}, []);
 
 	const say = useCallback((text: string, ms = 3600, extra?: { title?: string; note?: string }) => {
@@ -144,7 +147,7 @@ const RobotCompanion = () => {
 		[setPose],
 	);
 
-	// Physics loop: only runs while the robot is airborne or sliding.
+	// Physics loop: only runs while the robot is airborne, rolling or settling upright.
 	const kick = useCallback(() => {
 		cancelAnimationFrame(raf.current);
 		let last = performance.now();
@@ -156,28 +159,59 @@ const RobotCompanion = () => {
 			s.x += s.vx * dt;
 			s.y += s.vy * dt;
 
+			// Walls and ceiling: bounce and kick the spin the other way.
 			if (s.x < 0) {
 				s.x = 0;
 				s.vx *= -0.6;
+				s.va = -s.va * 0.6 + s.vx * 0.4;
 			} else if (s.x > maxX()) {
 				s.x = maxX();
 				s.vx *= -0.6;
+				s.va = -s.va * 0.6 + s.vx * 0.4;
 			}
 			if (s.y < 0) {
 				s.y = 0;
 				s.vy *= -0.4;
 			}
+
 			const floor = floorY();
-			if (s.y >= floor) {
+			const onFloor = s.y >= floor;
+			if (onFloor) {
 				s.y = floor;
-				if (Math.abs(s.vy) > 2.5) s.vy *= -0.45;
-				else s.vy = 0;
-				s.vx *= 0.85;
+				if (Math.abs(s.vy) > 2.5) {
+					// Each bounce loses energy and turns some sideways speed into spin.
+					s.vy *= -0.5;
+					s.va = s.va * 0.6 + s.vx * 0.9;
+				} else {
+					s.vy = 0;
+				}
+				// Rolling: he rolls like a wheel (spin matches distance travelled), slowing down by friction.
+				s.vx *= Math.pow(0.965, dt);
 				if (Math.abs(s.vx) < 0.15) s.vx = 0;
+				if (s.vy === 0) {
+					s.va = 0;
+					s.a += s.vx * 1.4 * dt;
+				}
+			} else {
+				s.va *= Math.pow(0.995, dt);
+				s.a += s.va * dt;
+			}
+
+			// Resting: spring back upright to the nearest full turn.
+			let settled = false;
+			if (onFloor && s.vy === 0 && s.vx === 0) {
+				const target = Math.round(s.a / 360) * 360;
+				const diff = target - s.a;
+				if (Math.abs(diff) < 0.4) {
+					s.a = 0;
+					settled = true;
+				} else {
+					s.a += diff * Math.min(0.16 * dt, 1);
+				}
 			}
 			apply();
 
-			if (s.y >= floor && s.vy === 0 && s.vx === 0) {
+			if (settled) {
 				if (poseRef.current === 'fall') setPose('idle');
 				return;
 			}
@@ -204,7 +238,7 @@ const RobotCompanion = () => {
 		reduceMotion.current = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		touchRef.current = matchMedia('(hover: none)').matches;
 
-		p.current = { x: maxX(), y: floorY(), vx: 0, vy: 0 };
+		p.current = { x: maxX(), y: floorY(), vx: 0, vy: 0, a: 0, va: 0 };
 		apply();
 		if (boxRef.current) boxRef.current.style.opacity = '1';
 
@@ -213,9 +247,35 @@ const RobotCompanion = () => {
 		let hoverShown = false;
 		let lastKey = '';
 		let lastAt = 0;
+		let spotEl: Element | null = null;
+		let spotTimer: ReturnType<typeof setTimeout> | undefined;
+
+		// Outline whatever Jarvis is talking about, so it's clear what he's pointing at (no cursor needed on touch).
+		const clearSpot = () => {
+			clearTimeout(spotTimer);
+			spotEl?.classList.remove('jarvis-spot');
+			spotEl = null;
+		};
+		const setSpot = (el: Element, ms: number) => {
+			clearSpot();
+			spotEl = el;
+			el.classList.add('jarvis-spot');
+			spotTimer = setTimeout(clearSpot, ms);
+		};
+
+		// Point the eyes at a spot on screen.
+		const aim = (x: number, y: number) => {
+			const pupils = pupilsRef.current;
+			if (!pupils || poseRef.current === 'sleep') return;
+			const dx = x - (p.current.x + W / 2);
+			const dy = y - (p.current.y + 33);
+			const dist = Math.hypot(dx, dy) || 1;
+			const k = Math.min(dist / 120, 1) * 3.2;
+			pupils.style.transform = `translate(${(dx / dist) * k}px, ${(dy / dist) * k}px)`;
+		};
 
 		const describe = (el: Element) => {
-			if (quietRef.current || drag.current.active) return;
+			if (quietRef.current || drag.current.active || document.querySelector('[data-modal]')) return;
 			const key = el.getAttribute('data-jarvis');
 			if (!key) return;
 			const now = Date.now();
@@ -226,7 +286,9 @@ const RobotCompanion = () => {
 			lastAt = now;
 			if (poseRef.current === 'sleep') setPose('idle');
 			const len = info.text.length + (info.extra?.length ?? 0);
-			say(info.text, clamp(3200 + len * 45, 4500, 14000), { title: info.title, note: info.extra });
+			const ms = clamp(3200 + len * 45, 4500, 14000);
+			say(info.text, ms, { title: info.title, note: info.extra });
+			setSpot(el, ms);
 			trackEvent('robot_interaction', { action: 'explain', key });
 		};
 
@@ -247,6 +309,7 @@ const RobotCompanion = () => {
 			if (lastEl) {
 				lastEl = null;
 				lastKey = '';
+				clearSpot();
 				if (hoverShown) {
 					hoverShown = false;
 					clearTimeout(bubbleTimer.current);
@@ -265,21 +328,22 @@ const RobotCompanion = () => {
 		const onTap = (e: MouseEvent) => {
 			if (!touchRef.current) return;
 			const el = targetOf(e);
-			if (el) describe(el);
+			if (!el) return;
+			aim(e.clientX, e.clientY);
+			// Buttons and links do their job first. If that opened a modal (skill, certificate, resume, contact),
+			// the modal already says it all, so Jarvis stays quiet instead of talking behind it.
+			if ((e.target as Element).closest('button, a, [role="button"]')) {
+				setTimeout(() => {
+					if (!document.querySelector('[data-modal]')) describe(el);
+				}, 180);
+			} else {
+				describe(el);
+			}
 		};
 
 		const onMove = (e: PointerEvent) => {
 			resetSleepTimer();
-			const el = boxRef.current;
-			const pupils = pupilsRef.current;
-			if (!el || !pupils || poseRef.current === 'sleep') return;
-			const cx = p.current.x + W / 2;
-			const cy = p.current.y + 33;
-			const dx = e.clientX - cx;
-			const dy = e.clientY - cy;
-			const dist = Math.hypot(dx, dy) || 1;
-			const k = Math.min(dist / 120, 1) * 3.2;
-			pupils.style.transform = `translate(${(dx / dist) * k}px, ${(dy / dist) * k}px)`;
+			aim(e.clientX, e.clientY);
 		};
 		const onActivity = () => resetSleepTimer();
 		const onResize = () => {
@@ -326,6 +390,7 @@ const RobotCompanion = () => {
 			window.removeEventListener('resize', onResize);
 			clearTimeout(greet);
 			clearTimeout(hoverTimer);
+			clearSpot();
 			clearTimeout(sleepTimer.current);
 			clearTimeout(poseTimer.current);
 			clearTimeout(bubbleTimer.current);
@@ -374,8 +439,26 @@ const RobotCompanion = () => {
 		d.lastT = performance.now();
 		d.vx = 0;
 		d.vy = 0;
+		d.tx = p.current.x;
+		d.ty = p.current.y;
 		p.current.vx = 0;
 		p.current.vy = 0;
+		p.current.va = 0;
+	};
+
+	// While held he trails the finger with a little lag and swings like he's dangling from it.
+	const dragLoop = () => {
+		const d = drag.current;
+		if (!d.active) return;
+		const s = p.current;
+		const nx = s.x + (d.tx - s.x) * 0.3;
+		const ny = s.y + (d.ty - s.y) * 0.3;
+		const swing = clamp((nx - s.x) * 2.6, -38, 38);
+		s.x = nx;
+		s.y = ny;
+		s.a += (swing - s.a) * 0.18;
+		apply();
+		raf.current = requestAnimationFrame(dragLoop);
 	};
 
 	const onPointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -385,6 +468,10 @@ const RobotCompanion = () => {
 			d.moved = true;
 			setPose('drag');
 			setBubble(null);
+			if (!reduceMotion.current) {
+				cancelAnimationFrame(raf.current);
+				raf.current = requestAnimationFrame(dragLoop);
+			}
 		}
 		if (!d.moved) return;
 		const now = performance.now();
@@ -394,9 +481,13 @@ const RobotCompanion = () => {
 		d.lastX = e.clientX;
 		d.lastY = e.clientY;
 		d.lastT = now;
-		p.current.x = clamp(e.clientX - d.offX, 0, maxX());
-		p.current.y = clamp(e.clientY - d.offY, 0, floorY());
-		apply();
+		d.tx = clamp(e.clientX - d.offX, 0, maxX());
+		d.ty = clamp(e.clientY - d.offY, 0, floorY());
+		if (reduceMotion.current) {
+			p.current.x = d.tx;
+			p.current.y = d.ty;
+			apply();
+		}
 	};
 
 	const onPointerUp = (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -412,11 +503,15 @@ const RobotCompanion = () => {
 		// Ignore stale velocity if the pointer paused before release.
 		const stale = performance.now() - d.lastT > 80;
 		if (reduceMotion.current) {
+			p.current.a = 0;
+			apply();
 			setPose('idle');
 			return;
 		}
 		p.current.vx = stale ? 0 : clamp(d.vx, -35, 35);
 		p.current.vy = stale ? 0 : clamp(d.vy, -35, 35);
+		// Carry the swing into a tumble: faster throws spin faster.
+		p.current.va = clamp(p.current.vx * 1.3 + p.current.a * 0.15, -30, 30);
 		setPose('fall');
 		say(pick(['Wheee!', 'Whoa!', 'Put me down gently!', 'I believe I can fly!']), 2200);
 		trackEvent('robot_interaction', { action: 'throw' });
@@ -504,7 +599,7 @@ const RobotCompanion = () => {
 				}}
 				className="block h-full w-full cursor-grab active:cursor-grabbing touch-none select-none rounded-2xl"
 			>
-				<svg viewBox="0 0 84 100" width={W} height={H} className={`robot robot-${pose} overflow-visible`} aria-hidden="true">
+				<svg ref={svgRef} style={{ transformOrigin: '50% 58%' }} viewBox="0 0 84 100" width={W} height={H} className={`robot robot-${pose} overflow-visible`} aria-hidden="true">
 					<defs>
 						{/* Gold, lit from the top left so it reads as a rounded, metallic solid */}
 						<radialGradient id="rb-gold" cx="0.3" cy="0.2" r="1">

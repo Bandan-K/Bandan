@@ -115,6 +115,7 @@ const NavBar = () => {
                             <motion.a
                                 key={item.name}
                                 href={item.href}
+                                data-jarvis="nav:link"
                                 onClick={() => handleNavClick(item.name, item.href)}
                                 aria-current={activeSection === item.href.replace('#', '') ? 'true' : undefined}
                                 initial={{ opacity: 0, y: -10 }}

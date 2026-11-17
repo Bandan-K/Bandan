@@ -20,7 +20,7 @@ const SkillModal = ({ skill, onClose }: SkillModalProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-100 p-4 sm:p-6"
+            data-modal="" className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-100 p-4 sm:p-6"
             onClick={onClose}
         >
             <motion.div
