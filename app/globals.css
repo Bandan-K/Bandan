@@ -271,6 +271,15 @@ html::-webkit-scrollbar {
 .robot-dance .robot-arm-r {
 	animation: robot-wave 0.55s ease-in-out infinite;
 }
+.robot-ctl-spin {
+	animation: robot-spin 0.9s ease-in-out 1;
+}
+.robot-ctl-jump {
+	animation: robot-jump 0.8s ease-out 1;
+}
+.robot-ctl-dance {
+	animation: robot-dance 0.55s ease-in-out infinite;
+}
 .robot-drag .robot-body {
 	transform-origin: center top;
 	animation: robot-dangle 0.7s ease-in-out infinite;

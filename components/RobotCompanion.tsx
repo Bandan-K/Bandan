@@ -764,7 +764,7 @@ const RobotCompanion = () => {
 			</button>
 
 			{/* Rolls with the robot so the buttons stay attached to him */}
-			<div ref={ctlRef} className="pointer-events-none absolute inset-0" style={{ transformOrigin: '42px 58px' }}>
+			<div ref={ctlRef} className={`robot-ctl-${pose} pointer-events-none absolute inset-0`} style={{ transformOrigin: '42px 58px' }}>
 				<button
 					type="button"
 					onClick={toggleQuiet}
