@@ -597,9 +597,17 @@ const RobotCompanion = () => {
 						react();
 					}
 				}}
-				className="block h-full w-full overflow-visible cursor-grab active:cursor-grabbing touch-none select-none rounded-2xl"
+				className="relative block h-full w-full overflow-visible cursor-grab active:cursor-grabbing touch-none select-none rounded-2xl"
 			>
-				<svg ref={svgRef} style={{ transformOrigin: '50% 58%' }} viewBox="0 0 84 100" width={W} height={H} className={`robot robot-${pose} overflow-visible`} aria-hidden="true">
+				<svg
+					ref={svgRef}
+					style={{ transformOrigin: '50% 56.67%', left: -16, top: -10 }}
+					viewBox="-16 -10 116 120"
+					width={W + 32}
+					height={H + 20}
+					className={`robot robot-${pose} pointer-events-none absolute overflow-visible`}
+					aria-hidden="true"
+				>
 					<defs>
 						{/* Gold, lit from the top left so it reads as a rounded, metallic solid */}
 						<radialGradient id="rb-gold" cx="0.3" cy="0.2" r="1">
