@@ -259,7 +259,9 @@ html::-webkit-scrollbar {
 	animation: robot-jump 0.8s ease-out 1;
 }
 .robot-spin .robot-body {
-	transform-origin: center;
+	/* Same pivot as the physics rotation and the controls (42, 58 in SVG space) so everything turns together */
+	transform-box: view-box;
+	transform-origin: 42px 58px;
 	animation: robot-spin 0.9s ease-in-out 1;
 }
 .robot-dance .robot-body {
