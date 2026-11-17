@@ -597,7 +597,7 @@ const RobotCompanion = () => {
 						react();
 					}
 				}}
-				className="block h-full w-full cursor-grab active:cursor-grabbing touch-none select-none rounded-2xl"
+				className="block h-full w-full overflow-visible cursor-grab active:cursor-grabbing touch-none select-none rounded-2xl"
 			>
 				<svg ref={svgRef} style={{ transformOrigin: '50% 58%' }} viewBox="0 0 84 100" width={W} height={H} className={`robot robot-${pose} overflow-visible`} aria-hidden="true">
 					<defs>
