@@ -604,7 +604,7 @@ const RobotCompanion = () => {
 			>
 				<svg
 					ref={svgRef}
-					style={{ transformOrigin: '50% 56.67%', left: -16, top: -10 }}
+					style={{ transformOrigin: '50% 47.5%', left: -16, top: -10 }}
 					viewBox="-16 -10 116 120"
 					width={W + 32}
 					height={H + 20}
@@ -764,7 +764,7 @@ const RobotCompanion = () => {
 			</button>
 
 			{/* Rolls with the robot so the buttons stay attached to him */}
-			<div ref={ctlRef} className={`robot-ctl-${pose} pointer-events-none absolute inset-0`} style={{ transformOrigin: '42px 58px' }}>
+			<div ref={ctlRef} className={`robot-ctl-${pose} pointer-events-none absolute inset-0`} style={{ transformOrigin: '42px 47px' }}>
 				<button
 					type="button"
 					onClick={toggleQuiet}
