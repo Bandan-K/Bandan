@@ -81,6 +81,7 @@ const RobotCompanion = () => {
 	const touchRef = useRef(false);
 	const p = useRef({ x: 0, y: 0, vx: 0, vy: 0, a: 0, va: 0 });
 	const svgRef = useRef<SVGSVGElement>(null);
+	const ctlRef = useRef<HTMLDivElement>(null);
 	const drag = useRef({ active: false, offX: 0, offY: 0, startX: 0, startY: 0, lastX: 0, lastT: 0, lastY: 0, vx: 0, vy: 0, tx: 0, ty: 0, moved: false });
 	const raf = useRef(0);
 	const clicks = useRef(0);
@@ -107,6 +108,8 @@ const RobotCompanion = () => {
 		if (el) el.style.transform = `translate3d(${p.current.x}px, ${p.current.y}px, 0)`;
 		const svg = svgRef.current;
 		if (svg) svg.style.transform = p.current.a ? `rotate(${p.current.a}deg)` : '';
+		const ctl = ctlRef.current;
+		if (ctl) ctl.style.transform = p.current.a ? `rotate(${p.current.a}deg)` : '';
 	}, []);
 
 	const say = useCallback((text: string, ms = 3600, extra?: { title?: string; note?: string }) => {
@@ -760,27 +763,30 @@ const RobotCompanion = () => {
 				</svg>
 			</button>
 
-			<button
-				type="button"
-				onClick={toggleQuiet}
-				aria-pressed={!quiet}
-				aria-label={quiet ? 'Turn Jarvis commentary on' : 'Turn Jarvis commentary off'}
-				title={quiet ? 'Commentary off' : 'Commentary on'}
-				className="absolute -top-2 -left-2 h-5 w-5 rounded-full border border-white/10 bg-gray-800 text-[10px] leading-none text-gray-400 opacity-0 transition-opacity hover:text-white focus-visible:opacity-100 group-hover/robot:opacity-100 pointer-coarse:opacity-70"
-			>
-				{quiet ? '🔕' : '💬'}
-			</button>
-			<button
-				type="button"
-				onClick={() => {
-					hiddenPref.set(true);
-					trackEvent('robot_interaction', { action: 'hide' });
-				}}
-				aria-label="Hide Jarvis"
-				className="absolute -top-2 -right-2 h-5 w-5 rounded-full border border-white/10 bg-gray-800 text-[10px] leading-none text-gray-400 opacity-0 transition-opacity hover:text-white focus-visible:opacity-100 group-hover/robot:opacity-100 pointer-coarse:opacity-70"
-			>
-				✕
-			</button>
+			{/* Rolls with the robot so the buttons stay attached to him */}
+			<div ref={ctlRef} className="pointer-events-none absolute inset-0" style={{ transformOrigin: '42px 58px' }}>
+				<button
+					type="button"
+					onClick={toggleQuiet}
+					aria-pressed={!quiet}
+					aria-label={quiet ? 'Turn Jarvis commentary on' : 'Turn Jarvis commentary off'}
+					title={quiet ? 'Commentary off' : 'Commentary on'}
+					className="pointer-events-auto absolute -top-2 -left-2 h-5 w-5 rounded-full border border-white/10 bg-gray-800 text-[10px] leading-none text-gray-400 opacity-0 transition-opacity hover:text-white focus-visible:opacity-100 group-hover/robot:opacity-100 pointer-coarse:opacity-70"
+				>
+					{quiet ? '🔕' : '💬'}
+				</button>
+				<button
+					type="button"
+					onClick={() => {
+						hiddenPref.set(true);
+						trackEvent('robot_interaction', { action: 'hide' });
+					}}
+					aria-label="Hide Jarvis"
+					className="pointer-events-auto absolute -top-2 -right-2 h-5 w-5 rounded-full border border-white/10 bg-gray-800 text-[10px] leading-none text-gray-400 opacity-0 transition-opacity hover:text-white focus-visible:opacity-100 group-hover/robot:opacity-100 pointer-coarse:opacity-70"
+				>
+					✕
+				</button>
+			</div>
 		</div>
 	);
 };
