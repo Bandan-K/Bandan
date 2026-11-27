@@ -16,7 +16,7 @@ const ContactDialog = () => {
 		<>
 			<button
 				onClick={openDialog}
-				className="px-8 py-3 text-onaccent bg-linear-to-r from-blue-400 to-purple-500 rounded-full font-medium hover:opacity-90 transition-opacity inline-flex items-center justify-center gap-2 shadow-lg shadow-purple-500/20"
+				className="inline-flex items-center justify-center gap-2 rounded-sm bg-portfolio-accent px-5 py-3 font-medium text-portfolio-on-accent transition-opacity hover:opacity-85"
 			>
 				<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
 					<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />

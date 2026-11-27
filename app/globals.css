@@ -6,6 +6,9 @@
   --color-white: rgb(var(--white));
   --color-pageend: rgb(var(--page-end));
   --color-onaccent: #ffffff;
+  --color-portfolio-accent: var(--portfolio-accent);
+  --color-portfolio-on-accent: var(--portfolio-on-accent);
+  --color-portfolio-rule: var(--portfolio-rule);
 
   --color-gray-100: rgb(var(--gray-100));
   --color-gray-300: rgb(var(--gray-300));
@@ -65,16 +68,19 @@
 :root,
 :root[data-theme='dark'] {
 	color-scheme: dark;
-	--white: 255 255 255;
+	--white: 244 238 229;
 	--gray-100: 243 244 246;
-	--gray-300: 209 213 219;
-	--gray-400: 156 163 175;
-	--gray-500: 107 114 128;
+	--gray-300: 219 209 198;
+	--gray-400: 183 171 158;
+	--gray-500: 159 145 131;
 	--gray-600: 75 85 99;
 	--gray-700: 55 65 81;
 	--gray-800: 31 41 55;
-	--gray-900: 17 24 39;
-	--page-end: 0 0 0;
+	--gray-900: 28 26 24;
+	--page-end: 23 21 19;
+	--portfolio-accent: #9bb6e2;
+	--portfolio-on-accent: #16243d;
+	--portfolio-rule: #494039;
 	--blue-300: 147 197 253;
 	--blue-400: 96 165 250;
 	--purple-300: 216 180 254;
@@ -87,16 +93,19 @@
 
 :root[data-theme='light'] {
 	color-scheme: light;
-	--white: 15 23 42;
-	--gray-100: 15 23 42;
-	--gray-300: 51 65 85;
-	--gray-400: 71 85 105;
-	--gray-500: 100 116 139;
+	--white: 41 32 26;
+	--gray-100: 41 32 26;
+	--gray-300: 75 63 53;
+	--gray-400: 105 91 79;
+	--gray-500: 118 104 91;
 	--gray-600: 148 163 184;
 	--gray-700: 203 213 225;
 	--gray-800: 226 232 240;
-	--gray-900: 248 250 252;
-	--page-end: 226 232 240;
+	--gray-900: 250 247 241;
+	--page-end: 242 236 226;
+	--portfolio-accent: #344f80;
+	--portfolio-on-accent: #fff9f4;
+	--portfolio-rule: #dcd0c3;
 	--blue-300: 59 130 246;
 	--blue-400: 37 99 235;
 	--purple-300: 168 85 247;
@@ -114,6 +123,8 @@ html {
 
 body {
 	background-color: rgb(var(--gray-900));
+	color: rgb(var(--white));
+	font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
 /* The logo asset is white-on-transparent; invert it on light backgrounds. */
@@ -153,14 +164,6 @@ body {
 	animation: gradient 6s ease infinite;
 }
 
-/* Native scrollbar hidden: the top ScrollProgress bar replaces it. Scrolling still works. */
-html {
-	scrollbar-width: none;
-}
-html::-webkit-scrollbar {
-	display: none;
-}
-
 ::selection {
 	background: rgb(var(--blue-400) / 0.35);
 }
@@ -186,14 +189,9 @@ html::-webkit-scrollbar {
 
 /* The element Jarvis is currently explaining. */
 .jarvis-spot {
-	outline: 2px solid rgb(var(--blue-400) / 0.55);
+	outline: 1px solid color-mix(in oklab, var(--portfolio-accent) 70%, transparent);
 	outline-offset: 6px;
-	border-radius: 1rem;
-	animation: jarvis-spot 1.6s ease-in-out infinite;
-}
-@keyframes jarvis-spot {
-	0%, 100% { outline-color: rgb(var(--blue-400) / 0.25); }
-	50% { outline-color: rgb(var(--purple-400) / 0.7); }
+	border-radius: 0.5rem;
 }
 
 /* Robot companion poses (SVG parts animate around their own box). */
@@ -259,9 +257,7 @@ html::-webkit-scrollbar {
 	animation: robot-jump 0.8s ease-out 1;
 }
 .robot-spin .robot-body {
-	/* Same pivot as the physics rotation and the controls (42, 47 in SVG space, the visual centre of head and torso) so everything turns together */
-	transform-box: view-box;
-	transform-origin: 42px 47px;
+	transform-origin: center;
 	animation: robot-spin 0.9s ease-in-out 1;
 }
 .robot-dance .robot-body {
@@ -272,15 +268,6 @@ html::-webkit-scrollbar {
 }
 .robot-dance .robot-arm-r {
 	animation: robot-wave 0.55s ease-in-out infinite;
-}
-.robot-ctl-spin {
-	animation: robot-spin 0.9s ease-in-out 1;
-}
-.robot-ctl-jump {
-	animation: robot-jump 0.8s ease-out 1;
-}
-.robot-ctl-dance {
-	animation: robot-dance 0.55s ease-in-out infinite;
 }
 .robot-drag .robot-body {
 	transform-origin: center top;
@@ -369,4 +356,37 @@ html::-webkit-scrollbar {
 
 .animate-expand {
 	animation: expand 1s ease-out forwards;
+}
+
+
+@layer components {
+	.portfolio-shell {
+		width: min(100% - clamp(2rem, 8vw, 6rem), 65rem);
+		margin-inline: auto;
+	}
+
+	.portfolio-section {
+		padding-block: clamp(3rem, 7vw, 6rem);
+		border-top: 1px solid var(--portfolio-rule);
+	}
+
+	.portfolio-display,
+	.portfolio-heading {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-weight: 400;
+		line-height: 1;
+		letter-spacing: -0.045em;
+		text-wrap: balance;
+	}
+
+	.portfolio-heading {
+		font-size: clamp(2.2rem, 5vw, 3.65rem);
+	}
+
+	.portfolio-intro {
+		max-width: 52ch;
+		margin-block: 0.85rem 2.25rem;
+		color: rgb(var(--gray-400));
+		line-height: 1.65;
+	}
 }

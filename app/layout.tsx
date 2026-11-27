@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
 import NavBar from '@/components/NavBar';
-import ScrollProgress from '@/components/ScrollProgress';
-import CursorGlow from '@/components/CursorGlow';
 import Footer from '@/components/Footer';
 import RobotCompanion from '@/components/RobotCompanion';
 
@@ -18,51 +16,28 @@ const geistMono = Geist_Mono({
 	subsets: ['latin'],
 });
 
+const title = 'Bandan Kumar Mahto | iOS Developer in India';
+const description =
+	'Bandan Kumar Mahto is an iOS app developer based in Jamnagar, India. Explore his work building iPhone and iPad apps with Swift, SwiftUI, and UIKit.';
+
 export const metadata: Metadata = {
 	metadataBase: new URL('https://bandan-kumar.vercel.app/'),
 	alternates: {
 		canonical: 'https://bandan-kumar.vercel.app',
 	},
-	title: 'Bandan Kumar Mahto - iOS Developer',
+	title,
 	applicationName: 'Bandan Kumar Mahto',
 	appleWebApp: {
 		title: 'Bandan Kumar Mahto',
 		statusBarStyle: 'default',
 		capable: true,
 	},
-	description:
-		'Welcome to my portfolio! I am a dedicated iOS developer crafting intuitive, high-performance applications using Swift, SwiftUI, and UIKit. I specialize in building seamless user experiences, robust APIs, and fluid animations for iPhone and iPad.',
-	keywords: [
-		'Bandan',
-		'Bandan Kumar',
-		'Bandan Kumar Mahto',
-		'Bandan iOS Developer',
-		'Bandan Kumar iOS Developer',
-		'Bandan Kumar Mahto iOS Developer',
-		'iOS Developer',
-		'Swift',
-		'SwiftUI',
-		'UIKit',
-		'Storyboard',
-		'Combine Framework',
-		'Mobile Apps',
-		'iPhone Development',
-		'iPad Development',
-		'Apple Developer',
-		'App Store',
-		'Core Data',
-		'API Integration',
-		'MVVM Architecture',
-		'Mobile UI/UX',
-		'Auto Layout',
-		'Xcode',
-	],
+	description,
 	authors: [{ name: 'Bandan Kumar Mahto' }],
 	creator: 'Bandan Kumar Mahto',
 	openGraph: {
-		title: 'Bandan Kumar Mahto - iOS Developer Portfolio',
-		description:
-			'Skilled iOS developer building elegant and performant iPhone/iPad applications using Swift, SwiftUI, and UIKit. Explore my work and technical expertise.',
+		title,
+		description,
 		url: 'https://bandan-kumar.vercel.app/',
 		siteName: 'Bandan Kumar Mahto',
 		images: [
@@ -76,14 +51,6 @@ export const metadata: Metadata = {
 		locale: 'en_US',
 		type: 'website',
 	},
-	// twitter: {
-	// 	card: 'summary_large_image',
-	// 	title: 'Bandan Kumar Mahto - iOS Developer',
-	// 	description:
-	// 		'Skilled iOS developer building elegant and performant iPhone/iPad applications using Swift, SwiftUI, and UIKit. Explore my work and technical expertise.',
-	// 	creator: '@yourusername', // update if needed
-	// 	images: ['/og-image.jpg'],
-	// },
 	robots: {
 		index: true,
 		follow: true,
@@ -128,8 +95,6 @@ export default function RootLayout({
 					Skip to content
 				</a>
 				<AnalyticsTracker />
-				<ScrollProgress />
-				<CursorGlow />
 				<NavBar />
 				{children}
 				<Footer />

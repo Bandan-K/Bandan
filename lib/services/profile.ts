@@ -19,7 +19,7 @@ export interface Skill {
 }
 
 export interface ProfileData {
-  heroSection: HeroSectionData;
+  heroSection: Partial<HeroSectionData>;
   skillsSection: Skill[];
 }
 
@@ -35,12 +35,7 @@ export const getProfileDetails = async (): Promise<ProfileData | null> => {
     if (docSnap.exists()) {
       const data = docSnap.data();
       return {
-        heroSection: (data.heroSection as HeroSectionData) || {
-          appRating: '4.8',
-          appsPublished: '10+',
-          experience: '5+',
-          projectsWorked: '25+'
-        },
+        heroSection: (data.heroSection as Partial<HeroSectionData>) || {},
         skillsSection: (data.skillsSection as Skill[]) || []
       };
     } else {

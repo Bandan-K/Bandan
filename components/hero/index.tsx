@@ -1,60 +1,33 @@
-'use client';
-
-import React, { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import Reveal from '@/components/Reveal';
-import { HeroSectionData } from '@/lib/services/profile';
+import type { HeroSectionData } from '@/lib/services/profile';
 import HeroStats from './HeroStats';
 
 interface HeroSectionProps {
-    initialData?: HeroSectionData | null;
-    /** Calculated from the experience timeline; overrides any stored value. */
-    experience: string;
+	initialData?: Partial<HeroSectionData> | null;
+	experience: string;
 }
 
-const HeroSection = ({ initialData, experience }: HeroSectionProps) => {
-    const ref = useRef<HTMLElement>(null);
-    const reduce = useReducedMotion();
-    // As the hero scrolls away its content recedes: shrinks, drifts up and fades (Apple-style).
-    const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-    const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-    const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
-    const y = useTransform(scrollYProgress, [0, 1], [0, -60]);
-    const bgY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-
-    return (
-        <section ref={ref} id="home" className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20">
-            <motion.div style={reduce ? undefined : { y: bgY }} className="absolute inset-0 z-0">
-                <div className="absolute top-0 left-0 w-full h-full bg-radial-[ellipse_at_center] from-blue-500/20 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 right-0 w-full h-full bg-radial-[ellipse_at_center] from-purple-500/20 via-transparent to-transparent"></div>
-            </motion.div>
-
-            <motion.div style={reduce ? undefined : { opacity, scale, y }} className="container mx-auto px-4 z-10">
-                <Reveal y={36} className="text-center mb-8">
-                <div>
-                    <span className="text-lg md:text-xl text-gray-400 mb-2 block">Hi, I&apos;m</span>
-                    <h1 data-jarvis="hero:name" className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4">
-                        <span className="bg-linear-to-r from-blue-400 via-purple-500 to-blue-400 text-transparent bg-clip-text bg-size-[200%] animate-gradient">
-                            Bandan Kumar Mahto
-                        </span>
-                    </h1>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 bg-clip-text text-transparent bg-linear-to-r from-gray-100 to-gray-300">
-                        iOS Developer
-                    </h2>
-                    <p data-jarvis="hero:tagline" className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed px-4">
-                        Crafting exceptional iOS experiences with
-                        <span className="text-purple-400"> Swift</span> using
-                        <span className="text-blue-400"> UIKit</span> and
-                        <span className="text-blue-400"> SwiftUI</span>
-                    </p>
-                </div>
-                </Reveal>
-
-                {/* App Store Stats */}
-                <HeroStats data={{ ...initialData, experience }} isLoading={false} />
-            </motion.div>
-        </section>
-    );
-};
-
-export default HeroSection;
+export default function HeroSection({ initialData, experience }: HeroSectionProps) {
+	return (
+		<section id="home" className="portfolio-shell pb-12 pt-32 sm:pb-16 sm:pt-40">
+			<div className="max-w-3xl">
+				<p className="mb-4 text-base font-medium text-gray-400">Hi, I&apos;m</p>
+				<h1 data-jarvis="hero:name" className="portfolio-display max-w-[12ch] text-[clamp(3.4rem,9vw,7.75rem)]">
+					Bandan Kumar Mahto
+				</h1>
+				<h2 className="mt-5 text-lg font-medium text-white sm:text-xl">iOS Developer</h2>
+				<p data-jarvis="hero:tagline" className="mt-5 max-w-lg text-lg leading-relaxed text-gray-300">
+					Based in Jamnagar, I build iPhone and iPad apps with Swift, UIKit, and SwiftUI.
+				</p>
+				<div className="mt-8 flex flex-wrap items-center gap-3">
+					<a href="#contact" className="rounded-md border border-transparent bg-portfolio-accent px-5 py-3 text-sm font-semibold text-portfolio-on-accent transition-colors hover:bg-portfolio-accent/85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-portfolio-accent">
+						Get in Touch
+					</a>
+					<a href="/Bandan_Kumar_Mahto_Resume.pdf" target="_blank" rel="noopener" className="rounded-md border border-portfolio-rule px-5 py-3 text-sm font-semibold transition-colors hover:border-portfolio-accent hover:text-portfolio-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-portfolio-accent">
+						View Resume
+					</a>
+				</div>
+			</div>
+			<HeroStats data={{ ...initialData, experience }} />
+		</section>
+	);
+}

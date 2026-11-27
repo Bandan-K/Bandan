@@ -291,7 +291,7 @@ const RobotCompanion = () => {
 			const len = info.text.length + (info.extra?.length ?? 0);
 			const ms = clamp(3200 + len * 45, 4500, 14000);
 			say(info.text, ms, { title: info.title, note: info.extra });
-			setSpot(el, ms);
+			setSpot(el.querySelector('[data-jarvis-spot]') ?? el, ms);
 			trackEvent('robot_interaction', { action: 'explain', key });
 		};
 
@@ -538,7 +538,7 @@ const RobotCompanion = () => {
 				type="button"
 				onClick={() => hiddenPref.set(false)}
 				aria-label="Bring back Jarvis"
-				className="fixed bottom-3 right-3 z-90 h-10 w-10 rounded-full border border-yellow-500/30 bg-gray-800/80 text-lg backdrop-blur-md opacity-70 hover:opacity-100 transition-opacity"
+				className="fixed bottom-3 right-3 z-90 h-10 w-10 rounded-full border border-portfolio-rule bg-gray-900 text-lg transition-colors hover:border-portfolio-accent focus-visible:border-portfolio-accent"
 			>
 				🤖
 			</button>
@@ -557,30 +557,30 @@ const RobotCompanion = () => {
 				className="robot-halo pointer-events-none absolute -inset-4 rounded-full"
 				style={{
 					background:
-						'radial-gradient(closest-side, rgb(var(--blue-400) / 0.3), rgb(var(--purple-400) / 0.12) 60%, transparent)',
+							'radial-gradient(closest-side, color-mix(in oklab, var(--portfolio-accent) 25%, transparent), transparent)',
 				}}
 			/>
 			{bubble && (
 				<div
 					role="status"
-					className={`robot-pop pointer-events-none absolute w-max max-w-64 rounded-2xl border border-yellow-500/30 bg-gray-800/90 px-3.5 py-2.5 text-xs leading-snug text-white shadow-2xl backdrop-blur-md sm:text-sm ${
+					className={`robot-pop pointer-events-none absolute w-max max-w-64 rounded-xl border border-portfolio-accent/60 bg-gray-900 px-4 py-3 text-xs leading-snug text-white shadow-xl sm:text-sm ${
 						bubble.side === 'right' ? 'right-0' : 'left-0'
 					} ${bubble.below ? 'top-full mt-3' : 'bottom-full mb-3'}`}
 				>
 					{bubble.title && (
-						<p className="mb-1 bg-linear-to-r from-yellow-400 to-amber-500 bg-clip-text text-[10px] font-bold uppercase tracking-widest text-transparent">
+						<p className="mb-1 text-xs font-semibold text-portfolio-accent">
 							{bubble.title}
 						</p>
 					)}
 					<p className="font-medium">{bubble.text}</p>
 					{bubble.extra && (
-						<p className="mt-1.5 border-t border-white/10 pt-1.5 text-[11px] italic text-purple-300 sm:text-xs">
+						<p className="mt-2 border-t border-portfolio-rule pt-2 text-xs text-gray-400">
 							{bubble.extra}
 						</p>
 					)}
 					<span
 						aria-hidden="true"
-						className={`absolute h-2.5 w-2.5 rotate-45 border-yellow-500/30 bg-gray-800 ${bubble.side === 'right' ? 'right-9' : 'left-9'} ${
+						className={`absolute h-2.5 w-2.5 rotate-45 border-portfolio-accent/60 bg-gray-900 ${bubble.side === 'right' ? 'right-9' : 'left-9'} ${
 							bubble.below ? '-top-[5px] border-t border-l' : '-bottom-[5px] border-r border-b'
 						}`}
 					/>

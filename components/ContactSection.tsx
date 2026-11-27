@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import ContactDialog from './ContactDialog';
 import ResumeModal from './ResumeModal';
 
@@ -22,19 +21,19 @@ const ContactSection = () => {
 	};
 
 	return (
-		<section id="contact" className="py-20 px-4 bg-linear-to-b from-gray-900 to-pageend overflow-hidden">
-			<div className="max-w-4xl mx-auto">
-				<motion.div initial={{ opacity: 0, y: 48, scale: 0.97 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: '0px 0px -12% 0px' }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }} className="text-center space-y-8">
-					<h2 data-jarvis="section:contact" className="text-3xl font-bold bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+		<section id="contact" className="portfolio-shell portfolio-section">
+			<div className="max-w-3xl">
+				<div className="space-y-6">
+					<h2 data-jarvis="section:contact" className="portfolio-heading">
 						Let&apos;s Build Exceptional iOS Apps Together
 					</h2>
-					<p className="text-gray-400 max-w-2xl mx-auto">
-						Have an idea or need help crafting a polished, user-friendly iOS application? I bring expertise in Swift, UIKit, SwiftUI, and scalable app deployment.
+					<p className="max-w-xl leading-relaxed text-gray-400">
+						Looking for a mobile app developer for your iPhone or iPad project? I can help build, test, and ship native iOS apps with Swift, UIKit, and SwiftUI.
 					</p>
 
 					{/* Location */}
-					<div data-jarvis="contact:location" className="flex items-center justify-center gap-2 text-gray-400">
-						<svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<div data-jarvis="contact:location" className="flex items-center gap-2 text-gray-400">
+						<svg className="w-5 h-5 text-portfolio-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"
@@ -47,7 +46,7 @@ const ContactSection = () => {
 					</div>
 
 					{/* Contact Buttons */}
-					<div className="flex flex-col sm:flex-row justify-center gap-4">
+					<div className="flex flex-wrap items-center gap-4">
 						<div data-jarvis="contact:message" className="contents">
 							<ContactDialog />
 						</div>
@@ -55,9 +54,9 @@ const ContactSection = () => {
 						<button
 							onClick={handleResumeClick}
 							data-jarvis="contact:resume"
-							className="px-8 py-3 bg-white/5 rounded-full font-medium hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2 border border-white/10 hover:border-blue-500/50 group"
+							className="group inline-flex items-center justify-center gap-2 rounded-sm border border-portfolio-rule px-5 py-3 font-medium transition-colors hover:border-portfolio-accent"
 						>
-							<svg className="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+							<svg className="w-5 h-5 text-gray-400 group-hover:text-portfolio-accent transition-colors" fill="currentColor" viewBox="0 0 20 20">
 								<path
 									fillRule="evenodd"
 									d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
@@ -70,7 +69,7 @@ const ContactSection = () => {
 					</div>
 
 					{/* Social Links */}
-					<div className="flex justify-center gap-6 pt-4">
+					<div className="flex gap-2 pt-2">
 						<a
 							href="https://github.com/Bandan-K/Bandan-K"
 							data-jarvis="contact:github"
@@ -94,7 +93,7 @@ const ContactSection = () => {
 							</svg>
 						</a>
 					</div>
-				</motion.div>
+				</div>
 			</div>
 
 			<ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} resumeUrl={resumeUrl} />
