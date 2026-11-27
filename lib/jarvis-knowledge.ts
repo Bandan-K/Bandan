@@ -190,7 +190,7 @@ export const KNOWLEDGE: Record<string, Knowledge> = {
 	},
 	'contact:location': {
 		title: 'Location',
-		text: 'Based in Jamnagar, Gujarat, India.',
+		text: 'Based in India.',
 		extra: ['He has worked in Ahmedabad and Rajkot too, so he knows Gujarat’s tech scene.'],
 	},
 	'contact:message': {
