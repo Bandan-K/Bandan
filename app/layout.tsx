@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 const title = 'Bandan Kumar Mahto | iOS Developer in India';
 const description =
-	'Bandan Kumar Mahto is an iOS app developer based in Jamnagar, India. Explore his work building iPhone and iPad apps with Swift, SwiftUI, and UIKit.';
+	'Bandan Kumar Mahto is an iOS app developer based in India. Explore his work building iPhone and iPad apps with Swift, SwiftUI, and UIKit.';
 
 export const metadata: Metadata = {
 	metadataBase: new URL('https://bandan-kumar.vercel.app/'),

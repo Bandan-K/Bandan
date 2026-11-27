@@ -16,7 +16,7 @@ export default function HeroSection({ initialData, experience }: HeroSectionProp
 				</h1>
 				<h2 className="mt-5 text-lg font-medium text-white sm:text-xl">iOS Developer</h2>
 				<p data-jarvis="hero:tagline" className="mt-5 max-w-lg text-lg leading-relaxed text-gray-300">
-					Based in Jamnagar, I build iPhone and iPad apps with Swift, UIKit, and SwiftUI.
+					Based in India, I build iPhone and iPad apps with Swift, UIKit, and SwiftUI.
 				</p>
 				<div className="mt-8 flex flex-wrap items-center gap-3">
 					<a href="#contact" className="rounded-md border border-transparent bg-portfolio-accent px-5 py-3 text-sm font-semibold text-portfolio-on-accent transition-colors hover:bg-portfolio-accent/85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-portfolio-accent">
