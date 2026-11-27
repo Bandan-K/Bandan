@@ -16,7 +16,7 @@ export default async function MobileDevPortfolio() {
 	const experienceStat = formatExperienceStat(totalMonths(EXPERIENCE.map((e) => e.range), now));
 
 	return (
-		<main id="main" className="min-h-screen bg-linear-to-b from-gray-900 to-gray-800 text-white overflow-x-hidden">
+		<main id="main" className="min-h-screen bg-gray-900 text-white">
 			<HeroSection initialData={profileData?.heroSection} experience={experienceStat} />
 			<SkillsSection initialSkills={profileData?.skillsSection} />
 			<ExperienceSection asOf={now.toISOString()} />

@@ -19,7 +19,6 @@ const navItems = [
 const NavBar = () => {
     const pathname = usePathname();
     const isHomePage = pathname === '/';
-    const [isScrolled, setIsScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -27,8 +26,6 @@ const NavBar = () => {
         if (!isHomePage) return;
 
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-
             // Simple active section detection
             const sections = ['home', 'skills', 'experience', 'process', 'contact'];
             for (const section of sections) {
@@ -43,6 +40,7 @@ const NavBar = () => {
             }
         };
 
+        handleScroll();
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isHomePage]);
@@ -71,63 +69,44 @@ const NavBar = () => {
     return (
         <nav
             aria-label="Primary"
-            className={`fixed top-0 left-0 right-0 z-100 transition-all duration-500 ${isScrolled ? 'py-2 sm:py-4' : 'py-4 sm:py-6'
-                }`}
+            className="fixed inset-x-0 top-0 z-100 border-b border-portfolio-rule bg-gray-900"
         >
-            {/* Blur/fade strip so scrolling content doesn't show behind the floating bar */}
-            <div
-                aria-hidden="true"
-                className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-24 sm:h-28 backdrop-blur-md bg-linear-to-b from-gray-900/80 to-transparent mask-[linear-gradient(to_bottom,black_55%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_55%,transparent)]"
-            />
-            <div className="container mx-auto px-4">
-                <div
-                    className={`max-w-4xl mx-auto backdrop-blur-md rounded-2xl border transition-all duration-500 flex items-center justify-between px-6 py-2 sm:py-3 ${isScrolled
-                        ? 'bg-gray-900/80 border-white/10 shadow-2xl shadow-black/20'
-                        : 'bg-transparent border-transparent'
-                        }`}
-                >
+            <div className="portfolio-shell">
+                <div className="flex min-h-16 items-center justify-between gap-3">
                     {/* Logo */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                    <Link
+                        href="/"
+                        onClick={() => {
+                            if (isHomePage) {
+                                handleNavClick('Home', '#home');
+                            }
+                        }}
+                        className="flex items-center gap-2 cursor-pointer"
                     >
-                        <Link
-                            href="/"
-                            onClick={() => {
-                                if (isHomePage) {
-                                    handleNavClick('Home', '#home');
-                                }
-                            }}
-                            className="flex items-center gap-2 cursor-pointer"
-                        >
-                            <Image src="/logo-light.png" alt="" width={36} height={36} priority className="logo-mark h-9 w-9 object-contain" />
-                            <span className="text-xl font-bold bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                                Bandan.
-                            </span>
-                        </Link>
-                    </motion.div>
+                        <Image src="/logo-light.png" alt="" width={36} height={36} priority className="logo-mark h-9 w-9 object-contain" />
+                        <span className="text-lg font-semibold tracking-tight">
+                            Bandan.
+                        </span>
+                    </Link>
 
                     <div className="flex items-center gap-2 sm:gap-4">
                     {/* Desktop Nav */}
                     {isHomePage && (
                     <div className="hidden md:flex items-center gap-8">
-                        {navItems.map((item, index) => (
-                            <motion.a
+                        {navItems.map((item) => (
+                            <a
                                 key={item.name}
                                 href={item.href}
                                 data-jarvis="nav:link"
                                 onClick={() => handleNavClick(item.name, item.href)}
                                 aria-current={activeSection === item.href.replace('#', '') ? 'true' : undefined}
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                className={`text-sm font-medium transition-colors hover:text-blue-400 cursor-pointer ${activeSection === item.href.replace('#', '')
-                                    ? 'text-blue-400'
+                                className={`text-sm font-medium transition-colors hover:text-portfolio-accent cursor-pointer ${activeSection === item.href.replace('#', '')
+                                    ? 'text-portfolio-accent'
                                     : 'text-gray-400'
                                     }`}
                             >
                                 {item.name}
-                            </motion.a>
+                            </a>
                         ))}
                     </div>
                     )}
@@ -176,7 +155,7 @@ const NavBar = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="absolute top-full left-0 right-0 md:hidden bg-gray-900/95 backdrop-blur-xl border-b border-white/5 overflow-hidden z-90"
+                        className="absolute top-full left-0 right-0 md:hidden bg-gray-900 border-b border-portfolio-rule overflow-hidden z-90"
                     >
                         <div className="container mx-auto px-8 py-8 flex flex-col gap-6">
                             {navItems.map((item) => (
@@ -185,7 +164,7 @@ const NavBar = () => {
                                     href={item.href}
                                     onClick={() => handleNavClick(item.name, item.href)}
                                     className={`text-lg font-semibold transition-colors cursor-pointer ${activeSection === item.href.replace('#', '')
-                                        ? 'text-blue-400'
+                                        ? 'text-portfolio-accent'
                                         : 'text-gray-300'
                                         }`}
                                 >
